@@ -1,0 +1,5 @@
+DAOs\ISorteoDAO.class
+Entidades\EstadoSorteo.class
+DAOs\SorteoDAO.class
+Conexion\ConexionBD.class
+Entidades\Sorteo.class
