@@ -15,18 +15,15 @@ import org.jfree.data.time.DateRange;
  *
  * @author ruben
  */
-
 public class Sorteo implements Serializable {
 
     private ObjectId idSorteo;
     private String imagenRepresentativa;
     private String rangoNumeros;
-    private float precioNumero; 
+    private float precioNumero;
     private Duration periodoVenta;
     private LocalDateTime fechaSorteo;
-    private EstadoSorteo estadoSorteo; 
-
-    
+    private EstadoSorteo estadoSorteo;
 
     public Sorteo() {
     }
@@ -97,8 +94,4 @@ public class Sorteo implements Serializable {
         this.estadoSorteo = estadoSorteo;
     }
 
-    
-   
-
 }
-
