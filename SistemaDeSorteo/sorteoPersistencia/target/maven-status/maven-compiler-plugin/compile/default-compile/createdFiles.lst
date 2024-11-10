@@ -12,6 +12,7 @@ DAOs\CredencialOrganizadorDAO.class
 DAOs\ICredencialOrganizador.class
 DAOs\ICliente.class
 DAOs\IOrganizador.class
+Tests\SistemaTest.class
 Entidades\CredencialOrganizador_.class
 Entidades\Sorteo.class
 DAOs\ISorteoDAO.class
