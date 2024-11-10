@@ -97,7 +97,6 @@ public class MenuOrganizador extends javax.swing.JFrame {
 
     private void btnCrearSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSorteoActionPerformed
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_btnCrearSorteoActionPerformed
 
   
