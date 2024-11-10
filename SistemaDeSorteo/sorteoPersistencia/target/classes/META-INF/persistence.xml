@@ -3,6 +3,10 @@
   <persistence-unit name="com.mycompany.sorteopersistencia_sorteoPersistencia_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Entidades.Sorteo</class>
+    <class>Entidades.Organizador</class>
+    <class>Entidades.Cliente</class>
+    <class>Entidades.CredencialCliente</class>
+    <class>Entidades.CredencialOrganizador</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sorteo?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
