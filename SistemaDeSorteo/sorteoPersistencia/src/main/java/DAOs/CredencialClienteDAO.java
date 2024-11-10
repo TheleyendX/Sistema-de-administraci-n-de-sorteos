@@ -1,7 +1,7 @@
 package DAOs;
 
 import Conexion.ConexionBD;
-import Entidades.Cliente;
+import Entidades.CredencialCliente;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -9,16 +9,17 @@ import javax.persistence.EntityTransaction;
  *
  * @author Acer
  */
-public class ClienteDAO implements ICliente{
+public class CredencialClienteDAO implements ICredencialCliente{
 
     @Override
-    public void crearCliente(Cliente cliente) {
+    public void crearCredencialCliente(CredencialCliente credencialCliente) { 
+    
         EntityManager entityManager = ConexionBD.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
-            entityManager.persist(cliente); // Guarda el cliente
+            entityManager.persist(credencialCliente); // Guarda la credencial del cliente
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {
@@ -31,29 +32,30 @@ public class ClienteDAO implements ICliente{
     }
 
     @Override
-    public Cliente obtenerClientePorId(Long id) {
-                EntityManager entityManager = ConexionBD.getEntityManager();
-        Cliente cliente = null;
+    public CredencialCliente obtenerCredencialClientePorId(Long id) {     
+    
+        EntityManager entityManager = ConexionBD.getEntityManager();
+        CredencialCliente credencialCliente = null;
 
         try {
-            cliente = entityManager.find(Cliente.class, id); // Busca el cliente por su ID
+            credencialCliente = entityManager.find(CredencialCliente.class, id); // Busca la credencial del cliente por su ID
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             entityManager.close(); // Cerrar el EntityManager
         }
 
-        return cliente;
+        return credencialCliente;
     }
 
     @Override
-    public void actualizarCliente(Cliente cliente) {
+    public void actualizarCredencialCliente(CredencialCliente credencialCliente) {
         EntityManager entityManager = ConexionBD.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
-            entityManager.merge(cliente); // Actualiza el cliente
+            entityManager.merge(credencialCliente); // Actualiza la credencial del cliente
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {
@@ -66,15 +68,15 @@ public class ClienteDAO implements ICliente{
     }
 
     @Override
-    public void eliminarCliente(Long id) {
+    public void eliminarCredencialCliente(Long id) {    
         EntityManager entityManager = ConexionBD.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
-            Cliente cliente = entityManager.find(Cliente.class, id); // Busca el cliente por su ID
-            if (cliente != null) {
-                entityManager.remove(cliente); // Elimina el cliente
+            CredencialCliente credencialCliente = entityManager.find(CredencialCliente.class, id); // Busca la credencial del cliente por su ID
+            if (credencialCliente != null) {
+                entityManager.remove(credencialCliente); // Elimina la credencial del cliente
             }
             transaction.commit();
         } catch (Exception e) {
@@ -85,5 +87,7 @@ public class ClienteDAO implements ICliente{
         } finally {
             entityManager.close(); // Cerrar el EntityManager
         }
-    }   
+        
+    }
+    
 }

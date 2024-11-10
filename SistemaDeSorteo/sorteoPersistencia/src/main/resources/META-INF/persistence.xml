@@ -5,6 +5,8 @@
     <class>Entidades.Sorteo</class>
     <class>Entidades.Organizador</class>
     <class>Entidades.Cliente</class>
+    <class>Entidades.CredencialCliente</class>
+    <class>Entidades.CredencialOrganizador</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sorteo?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
