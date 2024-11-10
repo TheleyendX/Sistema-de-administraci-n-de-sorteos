@@ -36,6 +36,11 @@ public class MenuOrganizador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnCrearSorteo.setText("Crear Sorteo");
+        btnCrearSorteo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearSorteoActionPerformed(evt);
+            }
+        });
 
         btnVerSorteos.setText("Ver Sorteos");
 
@@ -89,6 +94,10 @@ public class MenuOrganizador extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCrearSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSorteoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCrearSorteoActionPerformed
 
   
 
