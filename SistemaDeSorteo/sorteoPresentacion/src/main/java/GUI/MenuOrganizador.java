@@ -49,6 +49,11 @@ public class MenuOrganizador extends javax.swing.JFrame {
         btnEliminarS.setText("Eliminar Sorteo");
 
         btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Black Ops One", 2, 36)); // NOI18N
         jLabel1.setText("Menu");
@@ -96,8 +101,16 @@ public class MenuOrganizador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSorteoActionPerformed
-        // TODO add your handling code here:
+         CrearSorteo ventanaCrearSorteo = new CrearSorteo();
+    ventanaCrearSorteo.setVisible(true);
     }//GEN-LAST:event_btnCrearSorteoActionPerformed
+// Este método cierra la sesión cuando se presiona el botón "Cerrar Sesión"
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+          dispose(); // Cierra el MenuOrganizador
+    // Aquí podrías redirigir al usuario a la pantalla de inicio de sesión, si existe.
+    Inicio login = new Inicio();
+    login.setVisible(true);
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
   
 

@@ -212,13 +212,13 @@ public class Registro extends javax.swing.JFrame {
     // Crear un objeto de usuario
     Usuario nuevoUsuario = new Usuario(id, nombre, correo, tipoUsuario, contrasena);
     
-    // Llamar a un método para guardar el usuario en la base de datos (esto es solo un ejemplo, tu implementación dependerá de tu base de datos)
-    UsuarioDAO usuarioDAO = new UsuarioDAO(); // Suponiendo que tienes una clase UsuarioDAO para manejar la persistencia
+    // Llamar a un método para guardar el usuario en la base de datos 
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     boolean registrado = usuarioDAO.guardarUsuario(nuevoUsuario);
     
     if (registrado) {
         JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
-        // Opcionalmente redirigir a otra pantalla (por ejemplo, inicio de sesión)
+        //  Redirigir a otra pantalla 
         Inicio a = new Inicio();
         a.setVisible(true);
         this.setVisible(false);
