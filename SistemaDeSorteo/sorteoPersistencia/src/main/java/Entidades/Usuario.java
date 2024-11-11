@@ -26,18 +26,31 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     private EstadoUsuario estadoUsuario;
+    private String contrasena;
+
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, String nombre, String email, TipoUsuario tipoUsuario, LocalDateTime fechaRegistro, EstadoUsuario estadoUsuario) {
+    public Usuario(Integer idUsuario, String nombre, String email, TipoUsuario tipoUsuario, LocalDateTime fechaRegistro, EstadoUsuario estadoUsuario, String contrasena) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
         this.fechaRegistro = fechaRegistro;
         this.estadoUsuario = estadoUsuario;
+        this.contrasena = contrasena;
     }
+
+    public Usuario(Integer idUsuario, String nombre, String email, TipoUsuario tipoUsuario, String contrasena) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.email = email;
+        this.tipoUsuario = tipoUsuario;
+        this.contrasena = contrasena;
+    }
+
+    
 
   
 
@@ -88,4 +101,14 @@ public class Usuario {
     public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
         this.estadoUsuario = estadoUsuario;
     }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+    
+    
 }

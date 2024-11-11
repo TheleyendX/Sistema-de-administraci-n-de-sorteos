@@ -5,6 +5,7 @@
 package DAOs;
 
 import Entidades.EstadoUsuario;
+import Entidades.TipoUsuario;
 import Entidades.Usuario;
 
 /**
@@ -18,6 +19,6 @@ public interface IUsuario {
     public Usuario obtenerUsuarioPorId(Integer idUsuario);
 
     public Usuario obtenerUsuarioPorEmail(String email);
-
+    
     public void cambiarEstadoUsuario(Integer idUsuario, EstadoUsuario estadoUsuario);
 }

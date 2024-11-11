@@ -4,6 +4,11 @@
  */
 package GUI;
 
+import DAOs.UsuarioDAO;
+import Entidades.TipoUsuario;
+import Entidades.Usuario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jorge
@@ -50,8 +55,6 @@ public class Autenticar extends javax.swing.JFrame {
                 btnIniciarActionPerformed(evt);
             }
         });
-
-        txtContra.setText("jPasswordField1");
 
         jLabel1.setText("Usuario:");
 
@@ -135,7 +138,38 @@ public class Autenticar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOlvidoCActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        // TODO add your handling code here:
+    String correo = txtUsuario.getText();  // Obtener el correo del usuario
+    String contrasena = new String(txtContra.getPassword());  // Obtener la contraseña del usuario
+
+    // Verificar que los campos no estén vacíos
+    if (correo.isEmpty() || contrasena.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor ingrese todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Llamar al método de la capa de persistencia para obtener el usuario
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    Usuario usuario = usuarioDAO.obtenerUsuarioPorEmail(correo); // Buscar usuario por correo
+
+    if (usuario != null && contrasena.equals(usuario.getEmail())) {  // Aquí comparas con la contraseña (ejemplo simple)
+        // Verificar tipo de usuario y redirigir al menú correspondiente
+        if (usuario.getTipoUsuario() == TipoUsuario.CLIENTE) {
+            // Si es cliente, mostrar el menú de cliente
+            MenuCliente menuCliente = new MenuCliente();  
+            menuCliente.setVisible(true);
+        } else if (usuario.getTipoUsuario() == TipoUsuario.ORGANIZADOR) {
+            // Si es organizador, mostrar el menú de organizador
+            MenuOrganizador menuOrganizador = new MenuOrganizador();
+            menuOrganizador.setVisible(true);
+        }
+
+        // Cerrar la ventana de inicio de sesión
+        this.dispose();  // Cierra la ventana actual
+    } else {
+        // Si no hay usuario o la contraseña es incorrecta
+        JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+   
     }//GEN-LAST:event_btnIniciarActionPerformed
 
    

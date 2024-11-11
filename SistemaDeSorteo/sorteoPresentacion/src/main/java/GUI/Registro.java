@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import DAOs.UsuarioDAO;
+import Entidades.Usuario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jorge
@@ -185,7 +189,42 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
+     // Obtener los valores de los campos
+    String nombre = txtNombre.getText();
+    String apellido = txtApellido.getText();
+    String correo = txtCorreo.getText();
+    String contrasena = new String(txtContra.getPassword());
+    String confirmacionContrasena = new String(txtConfirmacionContra.getPassword());
+    String tipoUsuario = (String) jComboBox1.getSelectedItem();
+    String id = txtId.getText();
+    
+    // Validar los datos
+    if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty() || id.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    if (!contrasena.equals(confirmacionContrasena)) {
+        JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Crear un objeto de usuario
+    Usuario nuevoUsuario = new Usuario(id, nombre, correo, tipoUsuario, contrasena);
+    
+    // Llamar a un método para guardar el usuario en la base de datos (esto es solo un ejemplo, tu implementación dependerá de tu base de datos)
+    UsuarioDAO usuarioDAO = new UsuarioDAO(); // Suponiendo que tienes una clase UsuarioDAO para manejar la persistencia
+    boolean registrado = usuarioDAO.guardarUsuario(nuevoUsuario);
+    
+    if (registrado) {
+        JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
+        // Opcionalmente redirigir a otra pantalla (por ejemplo, inicio de sesión)
+        Inicio a = new Inicio();
+        a.setVisible(true);
+        this.setVisible(false);
+    } else {
+        JOptionPane.showMessageDialog(this, "Hubo un error al registrar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
 

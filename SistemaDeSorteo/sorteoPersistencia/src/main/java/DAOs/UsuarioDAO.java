@@ -5,6 +5,7 @@
 package DAOs;
 
 import Entidades.EstadoUsuario;
+import Entidades.TipoUsuario;
 import Entidades.Usuario;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -55,4 +56,8 @@ public class UsuarioDAO implements IUsuario {
             entityManager.merge(usuario);
         }
     }
+    
+   
+
+
 }
