@@ -196,7 +196,7 @@ public class Registro extends javax.swing.JFrame {
         String contrasena = new String(txtContra.getPassword());
         String confirmacionContrasena = new String(txtConfirmacionContra.getPassword());
         String tipoUsuario = (String) jComboBox1.getSelectedItem();
-        String id = txtId.getText();
+        int id = Integer.parseInt(txtId.getText());
 
         // Validar los datos
         if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty() || id.isEmpty()) {
