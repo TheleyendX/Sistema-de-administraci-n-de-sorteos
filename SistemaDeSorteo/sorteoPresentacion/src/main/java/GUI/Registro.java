@@ -196,16 +196,19 @@ public class Registro extends javax.swing.JFrame {
         String contrasena = new String(txtContra.getPassword());
         String confirmacionContrasena = new String(txtConfirmacionContra.getPassword());
         String tipoUsuario = (String) jComboBox1.getSelectedItem();
-        int id = Integer.parseInt(txtId.getText());
+        int id;
 
-        // Validar los datos
-        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty() || id.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Convertir y validar el ID
+        try {
+            id = Integer.parseInt(txtId.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (!contrasena.equals(confirmacionContrasena)) {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Verificar que los campos no estén vacíos
+        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty() || id <= 0) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados y el ID debe ser un número positivo.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
