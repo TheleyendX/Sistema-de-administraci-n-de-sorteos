@@ -28,7 +28,6 @@ public class Usuario {
     private EstadoUsuario estadoUsuario;
     private String contrasena;
 
-
     public Usuario() {
     }
 
@@ -49,10 +48,6 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
         this.contrasena = contrasena;
     }
-
-    
-
-  
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -109,6 +104,5 @@ public class Usuario {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-    
-    
+
 }
