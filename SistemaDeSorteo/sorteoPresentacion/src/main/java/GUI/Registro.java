@@ -5,6 +5,7 @@
 package GUI;
 
 import DAOs.UsuarioDAO;
+import Entidades.TipoUsuario;
 import Entidades.Usuario;
 import javax.swing.JOptionPane;
 
@@ -195,7 +196,7 @@ public class Registro extends javax.swing.JFrame {
         String correo = txtCorreo.getText();
         String contrasena = new String(txtContra.getPassword());
         String confirmacionContrasena = new String(txtConfirmacionContra.getPassword());
-        String tipoUsuario = (String) jComboBox1.getSelectedItem();
+        TipoUsuario tipoUsuario = (TipoUsuario) jComboBox1.getSelectedItem();
         int id;
 
         // Convertir y validar el ID
