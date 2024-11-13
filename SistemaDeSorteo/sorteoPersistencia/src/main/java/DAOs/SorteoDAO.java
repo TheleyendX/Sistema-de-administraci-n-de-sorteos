@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAOs;
 
 import Conexion.ConexionBD;
+import Entidades.EstadoSorteo;
 
 import Entidades.Sorteo;
 import javax.persistence.EntityManager;
@@ -80,18 +77,24 @@ public class SorteoDAO implements ISorteoDAO {
 
         try {
             transaction.begin();
-            Sorteo sorteo = entityManager.find(Sorteo.class, id); // Busca el sorteo por su ID
+            Sorteo sorteo = entityManager.find(Sorteo.class, id);
             if (sorteo != null) {
-                entityManager.remove(sorteo); // Elimina el sorteo
+                if (sorteo.getEstadoSorteo() == EstadoSorteo.FINALIZADO || sorteo.getEstadoSorteo() == EstadoSorteo.INACTIVO) {
+                    entityManager.remove(sorteo);
+                } else {
+                    System.out.println("El sorteo no puede ser eliminado porque esta activo o no ha finalizado.");
+                }
+            } else {
+                System.out.println("El sorteo no existe.");
             }
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {
-                transaction.rollback(); // Deshacer cambios en caso de error
+                transaction.rollback();
             }
             e.printStackTrace();
         } finally {
-            entityManager.close(); // Cerrar el EntityManager
+            entityManager.close();
         }
     }
 }
