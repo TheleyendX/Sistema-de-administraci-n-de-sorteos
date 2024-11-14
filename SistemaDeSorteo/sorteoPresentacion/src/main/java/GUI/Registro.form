@@ -132,14 +132,8 @@
     <Component class="javax.swing.JTextField" name="txtCorreo">
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtContra">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtConfirmacionContra">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
       <Properties>

@@ -1,4 +1,5 @@
 Entidades\Boleto_.class
+Entidades\Sorteo_.class
 Conexion\ConexionBD.class
 DAOs\CredencialClienteDAO.class
 DAOs\UsuarioDAO.class
@@ -10,7 +11,6 @@ Entidades\EstadoBoleto.class
 Entidades\Sorteo.class
 DAOs\ISorteoDAO.class
 Entidades\EstadoUsuario.class
-.netbeans_automatic_build
 DAOs\IBoleto.class
 DAOs\IUsuario.class
 Entidades\CredencialCliente_.class

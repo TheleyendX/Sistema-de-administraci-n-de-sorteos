@@ -1,8 +1,8 @@
 package DAOs;
 
 import Conexion.ConexionBD;
+import DTOs.SorteoDTO;
 import Entidades.EstadoSorteo;
-
 import Entidades.Sorteo;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -96,5 +96,25 @@ public class SorteoDAO implements ISorteoDAO {
         } finally {
             entityManager.close();
         }
+    }
+
+    public void registrarSorteo(SorteoDTO sorteoDTO) {
+        // Validar el DTO
+        sorteoDTO.validar();
+
+        // Convertir DTO a Entidad
+        Sorteo sorteo = convertirDTOaEntidad(sorteoDTO);
+
+        // Delegar la persistencia al DAO
+        
+        crearSorteo(sorteo);
+    }
+
+    private Sorteo convertirDTOaEntidad(SorteoDTO dto) {
+        Sorteo sorteo = new Sorteo();
+        sorteo.setRangoNumeros(dto.getRangoNumeros());
+        sorteo.setPrecioNumero(dto.getPrecioNumero());
+        sorteo.setFechaSorteo(dto.getFechaSorteo());
+        return sorteo;
     }
 }

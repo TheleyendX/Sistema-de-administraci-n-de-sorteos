@@ -8,7 +8,10 @@ import Entidades.EstadoUsuario;
 import Entidades.TipoUsuario;
 import Entidades.Usuario;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -19,15 +22,34 @@ public class UsuarioDAO implements IUsuario {
     @PersistenceContext
     private EntityManager entityManager;
 
-    // Guardar o actualizar un usuario
+    public UsuarioDAO() {
+        // Crear la fábrica de EntityManager
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sorteo");
+        // Crear el EntityManager
+        entityManager = entityManagerFactory.createEntityManager();
+    }
+
     @Override
-    public void guardarUsuario(Usuario usuario) {
+public void guardarUsuario(Usuario usuario) {
+    // Iniciar una transacción
+    entityManager.getTransaction().begin();
+    try {
         if (usuario.getIdUsuario() == null) {
             entityManager.persist(usuario);  // Persistir si no tiene ID
         } else {
             entityManager.merge(usuario);  // Actualizar si ya existe
         }
+        // Confirmar la transacción
+        entityManager.getTransaction().commit();
+    } catch (Exception e) {
+        // Si ocurre un error, revertir la transacción
+        if (entityManager.getTransaction().isActive()) {
+            entityManager.getTransaction().rollback();
+        }
+        throw e;  // Relanzar el error para manejo posterior
     }
+}
+
 
     // Obtener un usuario por ID
     @Override

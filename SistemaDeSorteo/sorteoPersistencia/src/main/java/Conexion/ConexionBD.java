@@ -15,7 +15,7 @@ import javax.persistence.Persistence;
 public class ConexionBD {
 
     private static final EntityManagerFactory entityManagerFactory
-            = Persistence.createEntityManagerFactory("Sorteo");
+            = Persistence.createEntityManagerFactory("sorteo");
 
     public static EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();

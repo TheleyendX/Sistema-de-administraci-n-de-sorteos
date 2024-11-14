@@ -4,16 +4,11 @@
  */
 package Entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- *
- * @author ruben
+ * Entidad que representa un Boleto.
  */
 @Entity
 @Table(name = "boletos")
@@ -21,21 +16,21 @@ public class Boleto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idBoleto;
+    @Column(name = "id_boleto")
+    private Long idBoleto;
 
     @ManyToOne
-    @JoinColumn(name = "idSorteo", nullable = false)
+    @JoinColumn(name = "id_sorteo", nullable = false)
     private Sorteo sorteo;
 
-    @Column(name = "numero_boleto", nullable = false)
+    @Column(name = "numero_boleto", nullable = false, length = 50)
     private String numeroBoleto;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
     private EstadoBoleto estado;
 
-    public Boleto() {
-    }
+    public Boleto() {}
 
     public Boleto(Sorteo sorteo, String numeroBoleto, EstadoBoleto estado) {
         this.sorteo = sorteo;
@@ -43,11 +38,11 @@ public class Boleto implements Serializable {
         this.estado = estado;
     }
 
-    public Integer getIdBoleto() {
+    public Long getIdBoleto() {
         return idBoleto;
     }
 
-    public void setIdBoleto(Integer idBoleto) {
+    public void setIdBoleto(Long idBoleto) {
         this.idBoleto = idBoleto;
     }
 
@@ -74,4 +69,7 @@ public class Boleto implements Serializable {
     public void setEstado(EstadoBoleto estado) {
         this.estado = estado;
     }
+
+    
 }
+
