@@ -6,7 +6,11 @@ package Entidades;
 
 import java.io.Serializable;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.bson.types.ObjectId;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.jfree.data.time.DateRange;
@@ -37,6 +41,32 @@ public class Sorteo implements Serializable {
         this.fechaSorteo = fechaSorteo;
         this.estadoSorteo = estadoSorteo;
     }
+    
+    @Temporal(TemporalType.DATE) // Para java.util.Date
+    private Date fechaInicio;
+    
+    @Temporal(TemporalType.DATE) // Para java.util.Date
+    private Date fechaFin;
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+    
+    
+    
+ 
 
     public ObjectId getIdSorteo() {
         return idSorteo;

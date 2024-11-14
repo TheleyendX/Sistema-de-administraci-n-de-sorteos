@@ -8,7 +8,10 @@ import Entidades.EstadoUsuario;
 import Entidades.TipoUsuario;
 import Entidades.Usuario;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -18,6 +21,13 @@ public class UsuarioDAO implements IUsuario {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    public UsuarioDAO() {
+        // Crear la fábrica de EntityManager
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sorteo");
+        // Crear el EntityManager
+        entityManager = entityManagerFactory.createEntityManager();
+    }
 
     // Guardar o actualizar un usuario
     @Override

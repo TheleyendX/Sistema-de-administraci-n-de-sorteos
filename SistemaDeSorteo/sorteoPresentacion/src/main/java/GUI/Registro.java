@@ -20,6 +20,8 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
+          jComboBox1.addItem("CLIENTE");
+    jComboBox1.addItem("ORGANIZADOR");
     }
 
     /**
@@ -50,10 +52,6 @@ public class Registro extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        txtContra.setText("jPasswordField1");
-
-        txtConfirmacionContra.setText("jPasswordField1");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Organizador", "Cliente" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -190,45 +188,60 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // Obtener los valores de los campos
-        String nombre = txtNombre.getText();
-        String apellido = txtApellido.getText();
-        String correo = txtCorreo.getText();
-        String contrasena = new String(txtContra.getPassword());
-        String confirmacionContrasena = new String(txtConfirmacionContra.getPassword());
-        TipoUsuario tipoUsuario = (TipoUsuario) jComboBox1.getSelectedItem();
-        int id;
+         // Obtener los valores de los campos
+    String nombre = txtNombre.getText();
+    String apellido = txtApellido.getText();
+    String correo = txtCorreo.getText();
+    String contrasena = new String(txtContra.getPassword());
+    String confirmacionContrasena = new String(txtConfirmacionContra.getPassword());
+    String tipoSeleccionado = (String) jComboBox1.getSelectedItem();
+if (tipoSeleccionado == null) {
+    JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-        // Convertir y validar el ID
-        try {
-            id = Integer.parseInt(txtId.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // Convertir el valor seleccionado del JComboBox al enum TipoUsuario
+    TipoUsuario tipoUsuario;
+    try {
+        tipoUsuario = TipoUsuario.valueOf(jComboBox1.getSelectedItem().toString());
+    } catch (IllegalArgumentException e) {
+        JOptionPane.showMessageDialog(this, "El tipo de usuario seleccionado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Verificar que los campos no estén vacíos
-        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty() || id <= 0) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados y el ID debe ser un número positivo.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    int id;
 
-        // Crear un objeto de usuario
-        Usuario nuevoUsuario = new Usuario(id, nombre, correo, tipoUsuario, contrasena);
+    // Convertir y validar el ID
+    try {
+        id = Integer.parseInt(txtId.getText());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Llamar a un método para guardar el usuario en la base de datos 
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        boolean registrado = usuarioDAO.guardarUsuario(nuevoUsuario);
+    // Verificar que los campos no estén vacíos
+    if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty() || id <= 0) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados y el ID debe ser un número positivo.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        if (registrado) {
-            JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
-            //  Redirigir a otra pantalla 
-            Inicio a = new Inicio();
-            a.setVisible(true);
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Hubo un error al registrar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    // Crear un objeto de usuario
+    Usuario nuevoUsuario = new Usuario(id, nombre, correo, tipoUsuario, contrasena);
+
+    // Llamar a un método para guardar el usuario en la base de datos 
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    
+    try {
+        usuarioDAO.guardarUsuario(nuevoUsuario);
+        JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
+        
+        // Redirigir a otra pantalla 
+        Inicio a = new Inicio();
+        a.setVisible(true);
+        this.setVisible(false);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Hubo un error al registrar el usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
 
