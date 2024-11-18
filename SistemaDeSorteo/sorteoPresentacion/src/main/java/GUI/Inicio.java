@@ -6,7 +6,7 @@ package GUI;
 
 /**
  *
- * @author jorge
+ * @author ruben
  */
 public class Inicio extends javax.swing.JFrame {
 
