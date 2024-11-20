@@ -4,7 +4,10 @@
  */
 package GUI;
 
+import DAOs.SorteoDAO;
+import DTOs.SorteoDTO;
 import Entidades.*;
+import java.time.ZoneId;
 
 
 
@@ -30,8 +33,8 @@ public class CrearSorteo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        fechaInicioDate = new com.toedter.calendar.JDateChooser();
+        fechaFinDate = new com.toedter.calendar.JDateChooser();
         txtNumeroInicial = new javax.swing.JTextField();
         txtNumerofinal = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
@@ -85,12 +88,11 @@ public class CrearSorteo extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNumerofinal)
-                        .addComponent(txtNumeroInicial)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))
+                    .addComponent(fechaFinDate, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                    .addComponent(fechaInicioDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNumerofinal)
+                    .addComponent(txtNumeroInicial)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                 .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
@@ -111,11 +113,11 @@ public class CrearSorteo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaInicioDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fechaFinDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(btnConfirmacion)
                 .addGap(28, 28, 28))
@@ -129,20 +131,34 @@ public class CrearSorteo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumerofinalActionPerformed
 
     private void btnConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmacionActionPerformed
-         
-     // Obtenemos la fecha del JDateChooser
-    java.util.Date fechaInicio = jDateChooser1.getDate(); 
+     try {
+        // Crear un DTO desde la interfaz gráfica
+        SorteoDTO sorteoDTO = new SorteoDTO();
+        sorteoDTO.setRangoNumeros(txtNumeroInicial.getText() + "-" + txtNumerofinal.getText());
+        sorteoDTO.setPrecioNumero(Float.parseFloat(txtPrecio.getText()));
+        
+        // Asignar la fecha de inicio
+        sorteoDTO.setFechaSorteo(fechaInicioDate.getDate()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime());
 
-    if (fechaInicio != null) {
-        // Convertimos la fecha a java.util.Date, que es compatible con JPA.
-               Sorteo.setFechaInicio(fechaInicio);
-               Sorteo.setFechaFin(fechaFin);
+        // Asignar la fecha de fin
+        sorteoDTO.setFechaFin(fechaFinDate.getDate()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime());
 
-        // Aquí puedes continuar con la lógica de persistencia
-    } else {
-        // Manejo en caso de que no se seleccione una fecha
-        System.out.println("Por favor selecciona una fecha.");
-        return;  // Salimos si no se selecciona una fecha
+        // Registrar el sorteo
+        SorteoDAO sorteo = new SorteoDAO();
+        sorteo.registrarSorteo(sorteoDTO);
+
+        // Mensaje de éxito
+        javax.swing.JOptionPane.showMessageDialog(this, "Sorteo registrado correctamente.");
+    } catch (IllegalArgumentException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error de validación", javax.swing.JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al registrar el sorteo: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btnConfirmacionActionPerformed
 
@@ -150,8 +166,8 @@ public class CrearSorteo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmacion;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser fechaFinDate;
+    private com.toedter.calendar.JDateChooser fechaInicioDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

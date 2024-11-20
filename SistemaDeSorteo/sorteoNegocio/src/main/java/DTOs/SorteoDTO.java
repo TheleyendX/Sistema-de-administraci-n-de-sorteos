@@ -11,21 +11,24 @@ import java.time.LocalDateTime;
  * @author ruben
  */
 public class SorteoDTO {
+
     private int idSorteo;
     private String imagenRepresentativa;
     private String rangoNumeros;
     private float precioNumero;
     private LocalDateTime fechaSorteo;
+    private LocalDateTime fechaFin;
 
     public SorteoDTO() {
     }
 
-    public SorteoDTO(int idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, LocalDateTime fechaSorteo) {
+    public SorteoDTO(int idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, LocalDateTime fechaSorteo, LocalDateTime fechaFin) {
         this.idSorteo = idSorteo;
         this.imagenRepresentativa = imagenRepresentativa;
         this.rangoNumeros = rangoNumeros;
         this.precioNumero = precioNumero;
         this.fechaSorteo = fechaSorteo;
+        this.fechaFin = fechaFin;
     }
 
     public int getIdSorteo() {
@@ -68,7 +71,13 @@ public class SorteoDTO {
         this.fechaSorteo = fechaSorteo;
     }
 
-    
+    public LocalDateTime getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(LocalDateTime fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
     public void validar() throws IllegalArgumentException {
         if (idSorteo <= 0) {
@@ -85,4 +94,3 @@ public class SorteoDTO {
         }
     }
 }
-

@@ -32,10 +32,22 @@ public class UsuarioDAO implements IUsuario {
     // Guardar o actualizar un usuario
     @Override
     public void guardarUsuario(Usuario usuario) {
-        if (usuario.getIdUsuario() == null) {
-            entityManager.persist(usuario);  // Persistir si no tiene ID
-        } else {
-            entityManager.merge(usuario);  // Actualizar si ya existe
+        // Iniciar una transacción
+        entityManager.getTransaction().begin();
+        try {
+            if (usuario.getIdUsuario() == null) {
+                entityManager.persist(usuario);  // Persistir si no tiene ID
+            } else {
+                entityManager.merge(usuario);  // Actualizar si ya existe
+            }
+            // Confirmar la transacción
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            // Si ocurre un error, revertir la transacción
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            throw e;  // Relanzar el error para manejo posterior
         }
     }
 
@@ -66,8 +78,5 @@ public class UsuarioDAO implements IUsuario {
             entityManager.merge(usuario);
         }
     }
-    
-   
-
 
 }

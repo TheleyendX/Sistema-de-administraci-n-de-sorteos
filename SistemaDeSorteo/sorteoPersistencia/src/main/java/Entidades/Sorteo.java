@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import javax.persistence.*;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.bson.types.ObjectId;
@@ -19,60 +20,66 @@ import org.jfree.data.time.DateRange;
  *
  * @author ruben
  */
+
+/**
+ * Entidad que representa un Sorteo.
+ */
+@Entity
+@Table(name = "sorteos")
 public class Sorteo implements Serializable {
 
-    private ObjectId idSorteo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sorteo")
+    private Long idSorteo;
+
+    @Column(name = "imagen_representativa", nullable = false)
     private String imagenRepresentativa;
+
+    @Column(name = "rango_numeros", nullable = false)
     private String rangoNumeros;
+
+    @Column(name = "precio_numero", nullable = false)
     private float precioNumero;
+
+    @Column(name = "periodo_venta", nullable = false)
     private Duration periodoVenta;
+
+    @Column(name = "fecha_sorteo", nullable = false)
     private LocalDateTime fechaSorteo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_sorteo", nullable = false)
     private EstadoSorteo estadoSorteo;
 
-    public Sorteo() {
-    }
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_inicio", nullable = false)
+    private Date fechaInicio;
 
-    public Sorteo(ObjectId idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Duration periodoVenta, LocalDateTime fechaSorteo, EstadoSorteo estadoSorteo) {
-        this.idSorteo = idSorteo;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_fin", nullable = false)
+    private Date fechaFin;
+
+    public Sorteo() {}
+
+    public Sorteo(String imagenRepresentativa, String rangoNumeros, float precioNumero, 
+                  Duration periodoVenta, LocalDateTime fechaSorteo, EstadoSorteo estadoSorteo, 
+                  Date fechaInicio, Date fechaFin) {
         this.imagenRepresentativa = imagenRepresentativa;
         this.rangoNumeros = rangoNumeros;
         this.precioNumero = precioNumero;
         this.periodoVenta = periodoVenta;
         this.fechaSorteo = fechaSorteo;
         this.estadoSorteo = estadoSorteo;
-    }
-    
-    @Temporal(TemporalType.DATE) // Para java.util.Date
-    private Date fechaInicio;
-    
-    @Temporal(TemporalType.DATE) // Para java.util.Date
-    private Date fechaFin;
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
-    
-    
-    
- 
 
-    public ObjectId getIdSorteo() {
+    public Long getIdSorteo() {
         return idSorteo;
     }
 
-    public void setIdSorteo(ObjectId idSorteo) {
+    public void setIdSorteo(Long idSorteo) {
         this.idSorteo = idSorteo;
     }
 
@@ -124,4 +131,22 @@ public class Sorteo implements Serializable {
         this.estadoSorteo = estadoSorteo;
     }
 
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    
 }
+
