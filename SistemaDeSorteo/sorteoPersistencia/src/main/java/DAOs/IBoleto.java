@@ -14,9 +14,5 @@ public interface IBoleto {
 
     void marcarComoPagado(Integer idBoleto); // Método para marcar un boleto como pagado
 
-    void desmarcarComoPagado(Integer idBoleto); // Método para desmarcar un boleto
-
-    Boleto obtenerBoletoPorId(Integer idBoleto); // Método para obtener un boleto por su ID
-
-    void guardarBoleto(Boleto boleto); // Método para guardar un boleto
+    
 }

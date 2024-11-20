@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -33,6 +34,10 @@ public class Boleto implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
     private EstadoBoleto estado;
+
+    @Column(name = "tiempo_apartado")
+    private LocalDateTime tiempoApartado;  
+
 
     public Boleto() {
     }
@@ -67,6 +72,16 @@ public class Boleto implements Serializable {
         this.numeroBoleto = numeroBoleto;
     }
 
+    
+
+    public LocalDateTime getTiempoApartado() {
+        return tiempoApartado;
+    }
+
+    public void setTiempoApartado(LocalDateTime tiempoApartado) {
+        this.tiempoApartado = tiempoApartado;
+    }
+
     public EstadoBoleto getEstado() {
         return estado;
     }
@@ -74,4 +89,5 @@ public class Boleto implements Serializable {
     public void setEstado(EstadoBoleto estado) {
         this.estado = estado;
     }
+
 }

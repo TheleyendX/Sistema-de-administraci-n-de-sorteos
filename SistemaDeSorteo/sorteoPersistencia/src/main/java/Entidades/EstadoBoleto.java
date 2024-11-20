@@ -10,6 +10,9 @@ package Entidades;
  */
 public enum EstadoBoleto {
     PAGADO,
-    NO_PAGADO
+    NO_PAGADO,
+    DISPONIBLE,
+    APARTADO,
+    CANCELADO
 }
 

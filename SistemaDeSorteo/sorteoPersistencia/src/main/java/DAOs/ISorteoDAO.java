@@ -4,6 +4,7 @@
  */
 package DAOs;
 
+import DTOs.SorteoDTO;
 import Entidades.Sorteo;
 
 /**
@@ -20,4 +21,21 @@ public interface ISorteoDAO {
 
     void eliminarSorteo(Long id);
 
+    void registrarSorteo(SorteoDTO sorteoDTO);
+
+    Sorteo convertirDTOaEntidad(SorteoDTO dto);
+
+    String consultarEstadoSorteo(Long idSorteo);
+
+    String calcularRecaudacion(Long idSorteo);
+
+    String mostrarBoletos(Long idSorteo);
+    
+    long calcularDiasRestantes(Long idSorteo);
+    
+    int obtenerBoletosVendidos(Long idSorteo);
+    
+    int obtenerBoletosApartados(Long idSorteo);
+    
+    int obtenerTotalBoletos(Long idSorteo);
 }
