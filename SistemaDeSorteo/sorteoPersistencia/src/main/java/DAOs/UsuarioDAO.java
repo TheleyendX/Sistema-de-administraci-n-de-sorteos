@@ -62,12 +62,14 @@ public class UsuarioDAO implements IUsuario {
     }
 
     // Obtener un usuario por correo electrónico
-   @Override
+@Override
 public Usuario obtenerUsuarioPorEmail(String email) {
     try {
-        return entityManager.createQuery("SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class)
-                .setParameter("email", email)
-                .getSingleResult();
+        // Usamos una consulta nativa SQL
+        String sql = "SELECT * FROM sorteo.usuarios where email = ?";
+        return (Usuario) entityManager.createNativeQuery(sql, Usuario.class)
+                                      .setParameter(1, email)
+                                      .getSingleResult();
     } catch (NoResultException e) {
         return null;  // Usuario no encontrado
     }

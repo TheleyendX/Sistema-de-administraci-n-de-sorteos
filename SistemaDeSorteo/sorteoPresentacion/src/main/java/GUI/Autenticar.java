@@ -138,7 +138,7 @@ public class Autenticar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOlvidoCActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-    String correo = txtCorreo.getText();  // Obtener el correo del usuario
+   String correo = txtCorreo.getText().trim();  // Obtener el correo del usuario y eliminar espacios
     String contrasena = new String(txtContra.getPassword());  // Obtener la contraseña del usuario
 
     // Verificar que los campos no estén vacíos
@@ -147,12 +147,19 @@ public class Autenticar extends javax.swing.JFrame {
         return;
     }
 
-    // Llamar al método de la capa de persistencia para obtener el usuario
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
-    Usuario usuario = usuarioDAO.obtenerUsuarioPorEmail(correo); // Buscar usuario por correo
+    // Validar el formato del correo (ejemplo básico)
+    if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
+        JOptionPane.showMessageDialog(this, "Por favor ingrese un correo válido", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-    if (usuario != null && contrasena.equals(usuario.getEmail())) {  // Aquí comparas con la contraseña (ejemplo simple)
-        // Verificar tipo de usuario y redirigir al menú correspondiente
+    try {
+        // Llamar al método de la capa de persistencia para obtener el usuario
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuario = usuarioDAO.obtenerUsuarioPorEmail(correo); // Buscar usuario por correo
+
+        if (usuario != null && contrasena.equals(usuario.getContrasena())) {  // Comparar la contraseña con la almacenada
+            // Verificar tipo de usuario y redirigir al menú correspondiente
         if (usuario.getTipoUsuario() == TipoUsuario.CLIENTE) {
             // Si es cliente, mostrar el menú de cliente
             MenuCliente menuCliente = new MenuCliente();  
@@ -161,15 +168,18 @@ public class Autenticar extends javax.swing.JFrame {
             // Si es organizador, mostrar el menú de organizador
             MenuOrganizador menuOrganizador = new MenuOrganizador();
             menuOrganizador.setVisible(true);
-        }
+            }
 
-        // Cerrar la ventana de inicio de sesión
-        this.dispose();  // Cierra la ventana actual
-    } else {
-        // Si no hay usuario o la contraseña es incorrecta
-        JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+            // Cerrar la ventana de inicio de sesión
+            this.dispose();  // Cierra la ventana actual
+        } else {
+            // Si no hay usuario o la contraseña es incorrecta
+            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar iniciar sesión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace(); // Para depuración
     }
-   
     }//GEN-LAST:event_btnIniciarActionPerformed
 
    
