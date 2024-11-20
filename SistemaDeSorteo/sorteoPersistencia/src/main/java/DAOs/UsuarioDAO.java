@@ -7,11 +7,14 @@ package DAOs;
 import Entidades.EstadoUsuario;
 import Entidades.TipoUsuario;
 import Entidades.Usuario;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -35,6 +38,7 @@ public class UsuarioDAO implements IUsuario {
         // Iniciar una transacción
         entityManager.getTransaction().begin();
         try {
+            usuario.setFechaRegistro(LocalDateTime.now());
             if (usuario.getIdUsuario() == null) {
                 entityManager.persist(usuario);  // Persistir si no tiene ID
             } else {
@@ -58,16 +62,16 @@ public class UsuarioDAO implements IUsuario {
     }
 
     // Obtener un usuario por correo electrónico
-    @Override
-    public Usuario obtenerUsuarioPorEmail(String email) {
-        try {
-            return entityManager.createQuery("SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
-        } catch (Exception e) {
-            return null;  // En caso de que no se encuentre el usuario
-        }
+   @Override
+public Usuario obtenerUsuarioPorEmail(String email) {
+    try {
+        return entityManager.createQuery("SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    } catch (NoResultException e) {
+        return null;  // Usuario no encontrado
     }
+}
 
     // Cambiar el estado de un usuario
     @Override

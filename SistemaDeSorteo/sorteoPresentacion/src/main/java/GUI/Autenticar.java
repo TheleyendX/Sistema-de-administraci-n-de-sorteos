@@ -33,7 +33,7 @@ public class Autenticar extends javax.swing.JFrame {
 
         txtOlvidoC = new javax.swing.JButton();
         btnIniciar = new javax.swing.JButton();
-        txtUsuario = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         txtContra = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -56,7 +56,7 @@ public class Autenticar extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Usuario:");
+        jLabel1.setText("Correo:");
 
         jLabel2.setText("Contraseña:");
 
@@ -83,8 +83,8 @@ public class Autenticar extends javax.swing.JFrame {
                         .addComponent(txtContra))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(124, 124, 124))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -111,7 +111,7 @@ public class Autenticar extends javax.swing.JFrame {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -138,7 +138,7 @@ public class Autenticar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOlvidoCActionPerformed
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-    String correo = txtUsuario.getText();  // Obtener el correo del usuario
+    String correo = txtCorreo.getText();  // Obtener el correo del usuario
     String contrasena = new String(txtContra.getPassword());  // Obtener la contraseña del usuario
 
     // Verificar que los campos no estén vacíos
@@ -181,7 +181,7 @@ public class Autenticar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPasswordField txtContra;
+    private javax.swing.JTextField txtCorreo;
     private javax.swing.JButton txtOlvidoC;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,8 @@ public class Usuario {
     private Integer idUsuario;
 
     private String nombre;
+   
+    private String apellido;
 
     private String email;
 
@@ -31,9 +33,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, String nombre, String email, TipoUsuario tipoUsuario, LocalDateTime fechaRegistro, EstadoUsuario estadoUsuario, String contrasena) {
+    public Usuario(Integer idUsuario, String nombre,String apellido, String email, TipoUsuario tipoUsuario, LocalDateTime fechaRegistro, EstadoUsuario estadoUsuario, String contrasena) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
         this.fechaRegistro = fechaRegistro;
@@ -41,9 +44,10 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Usuario(Integer idUsuario, String nombre, String email, TipoUsuario tipoUsuario, String contrasena) {
+    public Usuario(Integer idUsuario, String nombre,String apellido, String email, TipoUsuario tipoUsuario, String contrasena) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
         this.tipoUsuario = tipoUsuario;
         this.contrasena = contrasena;
@@ -64,6 +68,16 @@ public class Usuario {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
+    
 
     public String getEmail() {
         return email;

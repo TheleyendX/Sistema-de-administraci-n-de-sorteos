@@ -53,7 +53,6 @@ public class Registro extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Organizador", "Cliente" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -215,18 +214,17 @@ public class Registro extends javax.swing.JFrame {
         try {
             id = Integer.parseInt(txtId.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El ID debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         // Verificar que los campos no estén vacíos
-        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty() || id <= 0) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados y el ID debe ser un número positivo.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         // Crear un objeto de usuario
-        Usuario nuevoUsuario = new Usuario(id, nombre, correo, tipoUsuario, contrasena);
+        Usuario nuevoUsuario = new Usuario(id, nombre,apellido, correo, tipoUsuario, contrasena);
 
         // Llamar a un método para guardar el usuario en la base de datos 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
