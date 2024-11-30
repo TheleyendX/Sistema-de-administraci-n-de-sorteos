@@ -33,7 +33,7 @@ public class Sorteo implements Serializable {
     @Column(name = "id_sorteo")
     private Long idSorteo;
 
-    @Column(name = "imagen_representativa", nullable = false)
+    @Column(name = "imagen_representativa")
     private String imagenRepresentativa;
 
     @Column(name = "rango_numeros", nullable = false)
@@ -42,11 +42,11 @@ public class Sorteo implements Serializable {
     @Column(name = "precio_numero", nullable = false)
     private float precioNumero;
 
-    @Column(name = "periodo_venta", nullable = false)
+    @Column(name = "periodo_venta")
     private Duration periodoVenta;
 
     @Column(name = "fecha_sorteo", nullable = false)
-    private LocalDateTime fechaSorteo;
+    private Date fechaSorteo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_sorteo", nullable = false)
@@ -60,10 +60,23 @@ public class Sorteo implements Serializable {
     @Column(name = "fecha_fin", nullable = false)
     private Date fechaFin;
 
-    public Sorteo() {}
+    public Sorteo() { this.estadoSorteo = EstadoSorteo.ACTIVO;}
+    
+
+    public Sorteo(Long idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Duration periodoVenta, Date fechaSorteo, EstadoSorteo estadoSorteo, Date fechaInicio, Date fechaFin) {
+        this.idSorteo = idSorteo;
+        this.imagenRepresentativa = imagenRepresentativa;
+        this.rangoNumeros = rangoNumeros;
+        this.precioNumero = precioNumero;
+        this.periodoVenta = periodoVenta;
+        this.fechaSorteo = fechaSorteo;
+        this.estadoSorteo = estadoSorteo;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
 
     public Sorteo(String imagenRepresentativa, String rangoNumeros, float precioNumero, 
-                  Duration periodoVenta, LocalDateTime fechaSorteo, EstadoSorteo estadoSorteo, 
+                  Duration periodoVenta, Date fechaSorteo, EstadoSorteo estadoSorteo, 
                   Date fechaInicio, Date fechaFin) {
         this.imagenRepresentativa = imagenRepresentativa;
         this.rangoNumeros = rangoNumeros;
@@ -115,11 +128,11 @@ public class Sorteo implements Serializable {
         this.periodoVenta = periodoVenta;
     }
 
-    public LocalDateTime getFechaSorteo() {
+    public Date getFechaSorteo() {
         return fechaSorteo;
     }
 
-    public void setFechaSorteo(LocalDateTime fechaSorteo) {
+    public void setFechaSorteo(Date fechaSorteo) {
         this.fechaSorteo = fechaSorteo;
     }
 

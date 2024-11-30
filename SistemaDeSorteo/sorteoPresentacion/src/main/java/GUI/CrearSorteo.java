@@ -8,8 +8,7 @@ import DAOs.SorteoDAO;
 import DTOs.SorteoDTO;
 import Entidades.*;
 import java.time.ZoneId;
-
-
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -131,38 +130,40 @@ public class CrearSorteo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumerofinalActionPerformed
 
     private void btnConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmacionActionPerformed
-     try {
-        // Crear un DTO desde la interfaz gráfica
-        SorteoDTO sorteoDTO = new SorteoDTO();
-        sorteoDTO.setRangoNumeros(txtNumeroInicial.getText() + "-" + txtNumerofinal.getText());
-        sorteoDTO.setPrecioNumero(Float.parseFloat(txtPrecio.getText()));
-        
-        // Asignar la fecha de inicio
-        sorteoDTO.setFechaSorteo(fechaInicioDate.getDate()
-                .toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime());
+        try {
+            // Validar que las fechas no sean nulas
+            if (fechaInicioDate.getDate() == null) {
+                throw new IllegalArgumentException("La fecha de inicio no puede ser nula.");
+            }
+            if (fechaFinDate.getDate() == null) {
+                throw new IllegalArgumentException("La fecha de fin no puede ser nula.");
+            }
 
-        // Asignar la fecha de fin
-        sorteoDTO.setFechaFin(fechaFinDate.getDate()
-                .toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime());
+            // Crear un DTO desde la interfaz gráfica
+            SorteoDTO sorteoDTO = new SorteoDTO();
+            sorteoDTO.setRangoNumeros(txtNumeroInicial.getText() + "-" + txtNumerofinal.getText());
+            sorteoDTO.setPrecioNumero(Float.parseFloat(txtPrecio.getText()));
 
-        // Registrar el sorteo
-        SorteoDAO sorteo = new SorteoDAO();
-        sorteo.registrarSorteo(sorteoDTO);
+            sorteoDTO.setFechaSorteo(fechaInicioDate.getDate()); // Asigna el objeto Date directamente
+            sorteoDTO.setFechaFin(fechaFinDate.getDate()); // Asigna el objeto Date directamente
 
-        // Mensaje de éxito
-        javax.swing.JOptionPane.showMessageDialog(this, "Sorteo registrado correctamente.");
-    } catch (IllegalArgumentException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error de validación", javax.swing.JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al registrar el sorteo: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-    }
+            // Validar el DTO
+            sorteoDTO.validar();
+
+            // Registrar el sorteo
+            SorteoDAO sorteo = new SorteoDAO();
+            sorteo.registrarSorteo(sorteoDTO);
+
+            // Mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Sorteo registrado correctamente.");
+
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error de validación", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar el sorteo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnConfirmacionActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmacion;

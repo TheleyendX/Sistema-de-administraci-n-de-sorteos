@@ -121,6 +121,8 @@ public class SorteoDAO implements ISorteoDAO {
         sorteo.setRangoNumeros(dto.getRangoNumeros());
         sorteo.setPrecioNumero(dto.getPrecioNumero());
         sorteo.setFechaSorteo(dto.getFechaSorteo());
+        sorteo.setFechaInicio(dto.getFechaSorteo());
+        sorteo.setFechaFin(dto.getFechaFin());
         return sorteo;
     }
 

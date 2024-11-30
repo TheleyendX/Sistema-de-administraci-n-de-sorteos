@@ -5,6 +5,7 @@
 package DTOs;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -12,17 +13,17 @@ import java.time.LocalDateTime;
  */
 public class SorteoDTO {
 
-    private int idSorteo;
+    private Long idSorteo;
     private String imagenRepresentativa;
     private String rangoNumeros;
     private float precioNumero;
-    private LocalDateTime fechaSorteo;
-    private LocalDateTime fechaFin;
+    private Date fechaSorteo;
+    private Date fechaFin;
 
     public SorteoDTO() {
     }
 
-    public SorteoDTO(int idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, LocalDateTime fechaSorteo, LocalDateTime fechaFin) {
+    public SorteoDTO(Long idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaSorteo, Date fechaFin) {
         this.idSorteo = idSorteo;
         this.imagenRepresentativa = imagenRepresentativa;
         this.rangoNumeros = rangoNumeros;
@@ -31,11 +32,11 @@ public class SorteoDTO {
         this.fechaFin = fechaFin;
     }
 
-    public int getIdSorteo() {
+    public Long getIdSorteo() {
         return idSorteo;
     }
 
-    public void setIdSorteo(int idSorteo) {
+    public void setIdSorteo(Long idSorteo) {
         this.idSorteo = idSorteo;
     }
 
@@ -63,26 +64,25 @@ public class SorteoDTO {
         this.precioNumero = precioNumero;
     }
 
-    public LocalDateTime getFechaSorteo() {
+    public Date getFechaSorteo() {
         return fechaSorteo;
     }
 
-    public void setFechaSorteo(LocalDateTime fechaSorteo) {
+    public void setFechaSorteo(Date fechaSorteo) {
         this.fechaSorteo = fechaSorteo;
     }
+    
+    
 
-    public LocalDateTime getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(LocalDateTime fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 
     public void validar() throws IllegalArgumentException {
-        if (idSorteo <= 0) {
-            throw new IllegalArgumentException("El ID del sorteo debe ser un número positivo.");
-        }
         if (rangoNumeros == null || rangoNumeros.isEmpty()) {
             throw new IllegalArgumentException("El rango de números no puede estar vacío.");
         }
@@ -93,4 +93,5 @@ public class SorteoDTO {
             throw new IllegalArgumentException("La fecha del sorteo no puede estar vacía.");
         }
     }
+
 }
