@@ -19,6 +19,10 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn -B verify --file pom.xml
+      
+      # Run tests in the 'pruebas' package
+      - name: Run tests
+        run: mvn -B test -Dtest=pruebas.**.*Test
 
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Update dependency graph
@@ -27,7 +31,6 @@ jobs:
         with:
           name: target
           path: target
-
   push-to-oci:
     name: Push to OCI
     needs: build
@@ -69,7 +72,6 @@ jobs:
         with:
           name: k8splan
           path: target/classes/META-INF/jkube/kubernetes.yml
-
   deploy-to-oci:
     name: Deploy to OCI
     needs: push-to-oci
