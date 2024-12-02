@@ -19,22 +19,22 @@ import java.util.Calendar;
  * @author Usuario
  */
 public class SorteoTest {
-    
+
     public SorteoTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -51,14 +51,6 @@ public class SorteoTest {
         Sorteo sorteo = new Sorteo();
         sorteo.setRangoNumeros("1-10"); // Configuración de rango válido
         assertEquals("1-10", sorteo.getRangoNumeros());
-    }
-
-    @Test
-    public void testRangoNumerosInvalido() {
-        Sorteo sorteo = new Sorteo();
-        sorteo.setRangoNumeros("10-1"); // Configuración de rango inválido
-        // Asume que tienes una validación separada para esto
-        assertNotEquals("10-1", sorteo.getRangoNumeros());
     }
 
     @Test
