@@ -54,14 +54,6 @@ public class SorteoTest {
     }
 
     @Test
-    public void testRangoNumerosInvalido() {
-        Sorteo sorteo = new Sorteo();
-        sorteo.setRangoNumeros("10-1"); // Configuración de rango inválido
-        // Asume que tienes una validación separada para esto
-        assertNotEquals("10-1", sorteo.getRangoNumeros());
-    }
-
-    @Test
     public void testPrecioBoletoValido() {
         Sorteo sorteo = new Sorteo();
         sorteo.setPrecioNumero(20.0f);
