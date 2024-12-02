@@ -1,0 +1,15 @@
+DAOs\IBoleto.class
+DAOs\IUsuario.class
+DAOs\CredencialClienteDAO.class
+DAOs\UsuarioDAO.class
+Entidades\Usuario.class
+DAOs\ICredencialCliente.class
+Entidades\CredencialOrganizador.class
+DAOs\CredencialOrganizadorDAO.class
+DAOs\ICredencialOrganizador.class
+Entidades\TipoUsuario.class
+Entidades\EstadoBoleto.class
+Entidades\EstadoUsuario.class
+DAOs\BoletoDAO.class
+Entidades\Boleto.class
+Entidades\CredencialCliente.class

@@ -51,8 +51,18 @@ public class MenuOrganizador extends javax.swing.JFrame {
         });
 
         btnModificarS.setText("Modificar Sorteo");
+        btnModificarS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarSActionPerformed(evt);
+            }
+        });
 
         btnEliminarS.setText("Eliminar Sorteo");
+        btnEliminarS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -133,12 +143,22 @@ public class MenuOrganizador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVerSorteosActionPerformed
 
+<<<<<<< HEAD
     private void btnLiberarNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarNumeroActionPerformed
             dispose(); // Cierra el MenuOrganizador
     // Aquí podrías redirigir al usuario a la pantalla de inicio de sesión, si existe.
     LiberarNumerosApartados a = new LiberarNumerosApartados();
     a.setVisible(true);
     }//GEN-LAST:event_btnLiberarNumeroActionPerformed
+=======
+    private void btnModificarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarSActionPerformed
+
+    private void btnEliminarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarSActionPerformed
+>>>>>>> aca9d27454a6f30c496a65466cd817c68443a81c
 
   
 

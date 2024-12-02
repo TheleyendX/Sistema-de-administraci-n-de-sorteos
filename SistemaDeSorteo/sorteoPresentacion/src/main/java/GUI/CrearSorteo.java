@@ -145,7 +145,10 @@ public class CrearSorteo extends javax.swing.JFrame {
 
     private void btnConfirmacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmacionActionPerformed
         try {
-            // Validar que las fechas no sean nulas
+            // Validar que los campos no estén vacíos
+            if (txtNumeroInicial.getText().isEmpty() || txtNumerofinal.getText().isEmpty() || txtPrecio.getText().isEmpty()) {
+                throw new IllegalArgumentException("Todos los campos deben estar llenos.");
+            }
             if (fechaInicioDate.getDate() == null) {
                 throw new IllegalArgumentException("La fecha de inicio no puede ser nula.");
             }
@@ -153,13 +156,47 @@ public class CrearSorteo extends javax.swing.JFrame {
                 throw new IllegalArgumentException("La fecha de fin no puede ser nula.");
             }
 
+            // Validar que los números inicial y final sean válidos
+            int numeroInicial;
+            int numeroFinal;
+            try {
+                numeroInicial = Integer.parseInt(txtNumeroInicial.getText());
+                numeroFinal = Integer.parseInt(txtNumerofinal.getText());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Los números inicial y final deben ser enteros.");
+            }
+
+            if (numeroInicial >= numeroFinal) {
+                throw new IllegalArgumentException("El número inicial debe ser menor que el número final.");
+            }
+
+            // Validar que el precio sea un número positivo
+            float precio;
+            try {
+                precio = Float.parseFloat(txtPrecio.getText());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("El precio debe ser un número.");
+            }
+
+            if (precio <= 0) {
+                throw new IllegalArgumentException("El precio debe ser mayor a 0.");
+            }
+
+            // Validar que las fechas sean coherentes
+            if (fechaInicioDate.getDate().after(fechaFinDate.getDate())) {
+                throw new IllegalArgumentException("La fecha de inicio debe ser anterior a la fecha de fin.");
+            }
+
+            if (fechaInicioDate.getDate().before(new java.util.Date())) {
+                throw new IllegalArgumentException("La fecha de inicio no puede ser anterior a la fecha actual.");
+            }
+
             // Crear un DTO desde la interfaz gráfica
             SorteoDTO sorteoDTO = new SorteoDTO();
-            sorteoDTO.setRangoNumeros(txtNumeroInicial.getText() + "-" + txtNumerofinal.getText());
-            sorteoDTO.setPrecioNumero(Float.parseFloat(txtPrecio.getText()));
-
-            sorteoDTO.setFechaSorteo(fechaInicioDate.getDate()); // Asigna el objeto Date directamente
-            sorteoDTO.setFechaFin(fechaFinDate.getDate()); // Asigna el objeto Date directamente
+            sorteoDTO.setRangoNumeros(numeroInicial + "-" + numeroFinal);
+            sorteoDTO.setPrecioNumero(precio);
+            sorteoDTO.setFechaSorteo(fechaInicioDate.getDate());
+            sorteoDTO.setFechaFin(fechaFinDate.getDate());
 
             // Validar el DTO
             sorteoDTO.validar();

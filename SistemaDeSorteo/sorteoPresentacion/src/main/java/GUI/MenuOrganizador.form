@@ -90,11 +90,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Modificar Sorteo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarSActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEliminarS">
       <Properties>
         <Property name="text" type="java.lang.String" value="Eliminar Sorteo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarSActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCerrarSesion">
       <Properties>
