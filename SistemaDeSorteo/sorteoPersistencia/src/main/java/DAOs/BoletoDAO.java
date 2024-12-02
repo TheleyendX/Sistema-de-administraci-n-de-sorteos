@@ -135,4 +135,29 @@ public class BoletoDAO implements IBoleto {
             }
         }
     }
+    
+    
+    public List<Object[]> obtenerNumerosApartados() {
+    String query = "SELECT b.id, c.id, c.nombre FROM Boleto b " +
+                   "JOIN Cliente c ON b.cliente.id = c.id " +
+                   "WHERE b.estado = 'APARTADO'";
+    return entityManager.createQuery(query, Object[].class).getResultList();
+}
+
+    public void liberarBoleto(int idBoleto) {
+    entityManager.getTransaction().begin();
+    try {
+        Boleto boleto = entityManager.find(Boleto.class, idBoleto);
+        if (boleto != null) {
+            
+            
+            entityManager.merge(boleto);
+        }
+        entityManager.getTransaction().commit();
+    } catch (Exception e) {
+        entityManager.getTransaction().rollback();
+        throw e;
+    }
+}
+
 }
