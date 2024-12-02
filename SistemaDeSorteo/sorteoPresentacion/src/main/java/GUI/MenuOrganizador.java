@@ -43,10 +43,25 @@ public class MenuOrganizador extends javax.swing.JFrame {
         });
 
         btnVerSorteos.setText("Ver Sorteos");
+        btnVerSorteos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerSorteosActionPerformed(evt);
+            }
+        });
 
         btnModificarS.setText("Modificar Sorteo");
+        btnModificarS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarSActionPerformed(evt);
+            }
+        });
 
         btnEliminarS.setText("Eliminar Sorteo");
+        btnEliminarS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setText("Cerrar Sesion");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +126,18 @@ public class MenuOrganizador extends javax.swing.JFrame {
     Inicio login = new Inicio();
     login.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnVerSorteosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSorteosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerSorteosActionPerformed
+
+    private void btnModificarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarSActionPerformed
+
+    private void btnEliminarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarSActionPerformed
 
   
 
