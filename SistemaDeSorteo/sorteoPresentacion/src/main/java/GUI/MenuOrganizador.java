@@ -127,25 +127,29 @@ public class MenuOrganizador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSorteoActionPerformed
-        dispose(); // Cierra el MenuOrganizador
+        dispose(); // Cierra la pantalla
+        // Aquí podras redirigir al usuario a la nueva pantalla
         CrearSorteo ventanaCrearSorteo = new CrearSorteo();
     ventanaCrearSorteo.setVisible(true);
     }//GEN-LAST:event_btnCrearSorteoActionPerformed
 // Este método cierra la sesión cuando se presiona el botón "Cerrar Sesión"
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-          dispose(); // Cierra el MenuOrganizador
-    // Aquí podrías redirigir al usuario a la pantalla de inicio de sesión, si existe.
-    Inicio login = new Inicio();
-    login.setVisible(true);
+          dispose(); // Cierra la pantalla
+    // Aquí podras redirigir al usuario a la nueva pantalla
+    Inicio a = new Inicio();
+    a.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnVerSorteosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSorteosActionPerformed
-        // TODO add your handling code here:
+           dispose(); // Cierra la pantalla
+    // Aquí podras redirigir al usuario a la nueva pantalla
+    VerSorteos a = new VerSorteos();
+    a.setVisible(true);
     }//GEN-LAST:event_btnVerSorteosActionPerformed
 
     private void btnModificarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSActionPerformed
-       dispose(); // Cierra el MenuOrganizador
-    // Aquí podrías redirigir al usuario a la pantalla de inicio de sesión, si existe.
+       dispose(); // Cierra la pantalla
+    // Aquí podras redirigir al usuario a la nueva pantalla
     ModificarSorteo a = new ModificarSorteo();
     a.setVisible(true);
     }//GEN-LAST:event_btnModificarSActionPerformed
@@ -155,7 +159,7 @@ public class MenuOrganizador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarSActionPerformed
 
     private void btnLiberarNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarNumeroActionPerformed
-         dispose(); // Cierra el MenuOrganizador
+         dispose();// Cierra la pantalla
     // Aquí podrías redirigir al usuario a la pantalla de inicio de sesión, si existe.
     LiberarNumerosApartados a = new LiberarNumerosApartados();
     a.setVisible(true);

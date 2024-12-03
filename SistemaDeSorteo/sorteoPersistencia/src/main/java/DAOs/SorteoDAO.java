@@ -236,6 +236,13 @@ public class SorteoDAO implements ISorteoDAO {
                 .setParameter("idSorteo", idSorteo)
                 .getResultList();
     }
+    
+    
+     // Método para obtener todos los sorteos
+    public List<Sorteo> obtenerTodosSorteos() {
+        String query = "SELECT s FROM Sorteo s";
+        return entityManager.createQuery(query, Sorteo.class).getResultList();
+    }
 
 
 }
