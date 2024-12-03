@@ -204,7 +204,19 @@ public class EliminarSorteos extends javax.swing.JFrame {
                 // Crear instancia del DAO
                 SorteoDAO sorteoDAO = new SorteoDAO();
 
-                // Llamar al método para eliminar el sorteo sin importar su estado
+                // Consultar el estado del sorteo
+                String estadoSorteo = sorteoDAO.consultarEstadoSorteo(idSorteo);
+
+                // Verificar si el sorteo está inactivo
+                if (!estadoSorteo.equals("INACTIVO")) {
+                    JOptionPane.showMessageDialog(this,
+                            "El sorteo no puede ser eliminado porque no está inactivo.",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                // Llamar al método para eliminar el sorteo
                 sorteoDAO.eliminarSorteo(idSorteo);
                 JOptionPane.showMessageDialog(this, "Sorteo eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
@@ -217,6 +229,7 @@ public class EliminarSorteos extends javax.swing.JFrame {
                 e.printStackTrace(); // Registrar el error para depuración
             }
         }
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
