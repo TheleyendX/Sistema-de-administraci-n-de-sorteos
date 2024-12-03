@@ -156,6 +156,8 @@ public class MenuOrganizador extends javax.swing.JFrame {
 
     private void btnEliminarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSActionPerformed
         // TODO add your handling code here:
+        EliminarSorteos a = new EliminarSorteos();
+        a.setVisible(true);
     }//GEN-LAST:event_btnEliminarSActionPerformed
 
     private void btnLiberarNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarNumeroActionPerformed
