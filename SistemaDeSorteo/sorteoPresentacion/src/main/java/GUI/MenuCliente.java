@@ -30,6 +30,7 @@ public class MenuCliente extends javax.swing.JFrame {
         btnPagosRealizados = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnApartarNumeros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,6 +42,13 @@ public class MenuCliente extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Black Ops One", 2, 36)); // NOI18N
         jLabel1.setText("Menu");
+
+        btnApartarNumeros.setText("Apartar Numeros");
+        btnApartarNumeros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApartarNumerosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,7 +64,8 @@ public class MenuCliente extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnPagosRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnNumerosA)))
+                        .addComponent(btnNumerosA)
+                        .addComponent(btnApartarNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
@@ -68,7 +77,9 @@ public class MenuCliente extends javax.swing.JFrame {
                 .addComponent(btnNumerosA, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnPagosRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnApartarNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(21, 21, 21))
         );
@@ -76,9 +87,17 @@ public class MenuCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnApartarNumerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartarNumerosActionPerformed
+        dispose(); // Cierra el MenuCliente
+        //
+        ApartarNumeros Apartar = new ApartarNumeros();
+        Apartar.setVisible(true);
+    }//GEN-LAST:event_btnApartarNumerosActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApartarNumeros;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnNumerosA;
     private javax.swing.JButton btnPagosRealizados;
