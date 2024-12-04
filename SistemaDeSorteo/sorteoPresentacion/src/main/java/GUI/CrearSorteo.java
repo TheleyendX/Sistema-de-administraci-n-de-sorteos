@@ -195,7 +195,8 @@ public class CrearSorteo extends javax.swing.JFrame {
 
             // Crear un DTO desde la interfaz gráfica
             SorteoDTO sorteoDTO = new SorteoDTO();
-            sorteoDTO.setRangoNumeros(numeroInicial + "-" + numeroFinal);
+            sorteoDTO.setNumeroInicial(numeroInicial);
+            sorteoDTO.setNumeroFinal(numeroFinal);
             sorteoDTO.setPrecioNumero(precio);
             sorteoDTO.setFechaInicio(fechaInicioDate.getDate());
             sorteoDTO.setFechaFin(fechaFinDate.getDate());

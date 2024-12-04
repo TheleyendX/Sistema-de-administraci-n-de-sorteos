@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Date;
 import java.util.Calendar;
 
@@ -19,7 +21,7 @@ import java.util.Calendar;
  * @author Usuario
  */
 public class SorteoTest {
-    
+
     public SorteoTest() {
     }
 
@@ -51,10 +53,12 @@ public class SorteoTest {
     }
 
     @Test
-    public void testRangoNumerosValido() {
+    public void testNumeroInicialFinalValido() {
         Sorteo sorteo = new Sorteo();
-        sorteo.setRangoNumeros("1-10"); // Configuración de rango válido
-        assertEquals("1-10", sorteo.getRangoNumeros());
+        sorteo.setNumeroInicial(1);
+        sorteo.setNumeroFinal(10); // Configuración de número inicial y final válidos
+        assertEquals(1, sorteo.getNumeroInicial());
+        assertEquals(10, sorteo.getNumeroFinal());
     }
 
     @Test

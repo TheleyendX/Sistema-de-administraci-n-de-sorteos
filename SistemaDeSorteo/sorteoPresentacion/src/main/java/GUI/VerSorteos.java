@@ -21,6 +21,7 @@ import services.SorteoService;
 public class VerSorteos extends javax.swing.JFrame {
 
     int id;
+
     /**
      * Creates new form VerSorteos
      */
@@ -28,10 +29,8 @@ public class VerSorteos extends javax.swing.JFrame {
         initComponents();
         cargarSorteos(); // Carga los sorteos cuando se inicia la ventana
     }
-    
-    
-    
-       // Método para cargar los sorteos en la tabla
+
+    // Método para cargar los sorteos en la tabla
     private void cargarSorteos() {
         try {
             SorteoDAO sorteoDAO = new SorteoDAO();
@@ -46,8 +45,9 @@ public class VerSorteos extends javax.swing.JFrame {
                 Sorteo sorteo = sorteos.get(i);
                 data[i][0] = sorteo.getIdSorteo();
                 data[i][1] = sorteo.getPrecioNumero();
-                data[i][2] = sorteo.getRangoNumeros(); 
-                data[i][3] = sorteo.getEstadoSorteo(); 
+                data[i][2] = sorteo.getNumeroInicial(); 
+                data[i][3] = sorteo.getNumeroFinal();
+                data[i][3] = sorteo.getEstadoSorteo();
                 data[i][4] = sorteo.getFechaInicio();
                 data[i][5] = sorteo.getFechaFin();
             }
@@ -55,10 +55,10 @@ public class VerSorteos extends javax.swing.JFrame {
             // Actualizar el modelo de la tabla
             jTable1.setModel(new javax.swing.table.DefaultTableModel(data, columnas) {
                 Class[] types = new Class[]{
-                        java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                    java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
                 };
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false, false, false
+                    false, false, false, false, false, false
                 };
 
                 @Override
@@ -102,10 +102,12 @@ public class VerSorteos extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
-        txtRango = new javax.swing.JTextField();
+        txtNumInicial = new javax.swing.JTextField();
         txtInicio = new javax.swing.JTextField();
         txtFin = new javax.swing.JTextField();
         boxEstado = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        txtNumFinal = new javax.swing.JTextField();
 
         txtPrecio2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -113,20 +115,20 @@ public class VerSorteos extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Precio", "Rango", "Estado", "Inicio", "Fin"
+                "ID", "Precio", "Numero inicial", "Numero final", "Estado", "Inicio", "Fin"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -179,7 +181,7 @@ public class VerSorteos extends javax.swing.JFrame {
         jLabel3.setText("Precio");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setText("Rango");
+        jLabel4.setText("Numero inicial:");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("Estado");
@@ -198,6 +200,15 @@ public class VerSorteos extends javax.swing.JFrame {
 
         boxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "    ACTIVO", "    INACTIVO", "    FINALIZADO" }));
 
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel9.setText("Numero final:");
+
+        txtNumFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumFinalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,32 +219,11 @@ public class VerSorteos extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(88, 88, 88)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(84, 84, 84)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtRango, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(82, 82, 82)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtPrecio)))
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(102, 102, 102)
-                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,7 +239,34 @@ public class VerSorteos extends javax.swing.JFrame {
                                 .addGap(145, 145, 145)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(88, 88, 88)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNumInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtNumFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(9, 9, 9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPrecio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 442, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -280,7 +297,7 @@ public class VerSorteos extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel4)
-                                            .addComponent(txtRango, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtNumInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel5)
@@ -289,7 +306,11 @@ public class VerSorteos extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel7)
                                         .addGap(15, 15, 15)))
-                                .addGap(123, 123, 123))
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(txtNumFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(69, 69, 69))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
                                 .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,12 +350,18 @@ public class VerSorteos extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         try {
             // Validar que el campo ID no esté vacío
-            if (txtID.getText().isEmpty()) {
+            String idText = txtID.getText();
+            if (idText.isEmpty()) {
                 throw new IllegalArgumentException("Debe seleccionar un sorteo para modificar.");
             }
 
-            // Obtener el ID del sorteo
-            int id = Integer.parseInt(txtID.getText());
+            // Obtener el ID del sorteo y verificar que sea un número
+            int id = -1;
+            try {
+                id = Integer.parseInt(idText);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("El ID debe ser un número válido.");
+            }
 
             // Crear una instancia del servicio
             SorteoService sorteoService = new SorteoService(new SorteoDAO());
@@ -348,13 +375,39 @@ public class VerSorteos extends javax.swing.JFrame {
             // Verificar si hay al menos un cambio en los campos
             boolean hayCambios = false;
 
-            if (sorteoActual.getPrecioNumero() != Float.parseFloat(txtPrecio.getText())) {
+            // Verificar si el precio ha cambiado
+            String precioText = txtPrecio.getText();
+            float precio = 0;
+            try {
+                precio = Float.parseFloat(precioText);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("El precio debe ser un número válido.");
+            }
+
+            if (sorteoActual.getPrecioNumero() != precio) {
                 hayCambios = true;
             }
-            if (!sorteoActual.getRangoNumeros().equals(txtRango.getText())) {
+
+            // Cambiar de RangoNumeros a Numero Inicial y Final
+            String numInicial = txtNumInicial.getText();
+            String numFinal = txtNumFinal.getText();
+
+            // Verificar si los números inicial y final han cambiado
+            if (numInicial == null || numFinal == null || numInicial.isEmpty() || numFinal.isEmpty()) {
+                throw new IllegalArgumentException("Los números inicial y final no pueden estar vacíos.");
+            }
+
+            if (!sorteoActual.getNumeroInicial().equals(numInicial) || !sorteoActual.getNumeroFinal().equals(numFinal)) {
                 hayCambios = true;
             }
-            if (!sorteoActual.getEstadoSorteo().equals(boxEstado.getSelectedItem())) {
+
+            // Verificar si el estado ha cambiado
+            Object selectedEstado = boxEstado.getSelectedItem();
+            if (selectedEstado == null) {
+                throw new IllegalArgumentException("Debe seleccionar un estado para el sorteo.");
+            }
+
+            if (!sorteoActual.getEstadoSorteo().equals(selectedEstado)) {
                 hayCambios = true;
             }
 
@@ -367,12 +420,11 @@ public class VerSorteos extends javax.swing.JFrame {
             // Crear un nuevo DTO con los datos modificados
             SorteoDTO nuevoSorteo = new SorteoDTO(
                     id,
-                    sorteoActual.getImagenRepresentativa(),
-                    txtRango.getText(),
-                    Float.parseFloat(txtPrecio.getText()),
+                    numInicial + "-" + numFinal, // Asegurarse de que se convierte a String
+                    precio,
                     sorteoActual.getFechaInicio(), // Mantener la fecha de inicio actual
                     sorteoActual.getFechaFin(), // Mantener la fecha de fin actual
-                    (EstadoSorteo) boxEstado.getSelectedItem() // Obtener el estado del combo box
+                    (EstadoSorteo) selectedEstado // Obtener el estado del combo box
             );
 
             // Validar el nuevo DTO
@@ -389,11 +441,12 @@ public class VerSorteos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error de Validación", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); // Registrar el error para depuración
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       // Añadir el evento de clic en la tabla
+        // Añadir el evento de clic en la tabla
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -480,7 +533,7 @@ public class VerSorteos extends javax.swing.JFrame {
                 // Asignar valores a los campos de texto
                 txtID.setText(String.valueOf(id));
                 txtPrecio.setText(String.valueOf(precio));
-                txtRango.setText(rango);
+                txtNumInicial.setText(rango);
                 boxEstado.setSelectedItem(estado); // Asignar el estado al combo box
                 txtInicio.setText(inicio != null ? inicio.toString() : ""); // Manejo de posibles valores nulos
                 txtFin.setText(fin != null ? fin.toString() : "");
@@ -495,6 +548,10 @@ public class VerSorteos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void txtNumFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumFinalActionPerformed
+
 //    void modificar(){
 //        String precio = txtPrecio.getText();
 //        String rango = txtRango.getText();
@@ -502,7 +559,6 @@ public class VerSorteos extends javax.swing.JFrame {
 //        String inicio = txtInicio.getText();
 //        String fin = txtFin.getText();
 //    }
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxEstado;
@@ -517,13 +573,15 @@ public class VerSorteos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtFin;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtInicio;
+    private javax.swing.JTextField txtNumFinal;
+    private javax.swing.JTextField txtNumInicial;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JLabel txtPrecio2;
-    private javax.swing.JTextField txtRango;
     // End of variables declaration//GEN-END:variables
 }

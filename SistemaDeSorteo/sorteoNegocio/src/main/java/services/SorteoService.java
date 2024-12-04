@@ -10,35 +10,35 @@ import java.util.Optional;
  * @author Acer
  */
 public class SorteoService {
-     private final ISorteoDAO sorteoDAO;
+
+    private final ISorteoDAO sorteoDAO;
 
     public SorteoService(ISorteoDAO sorteoDAO) {
         this.sorteoDAO = sorteoDAO;
     }
-    
 
     public SorteoDTO obtenerPorId(int idSorteo) throws Exception {
         Sorteo sorteoEntidad = Optional.ofNullable(sorteoDAO.obtenerSorteoPorId(idSorteo))
-            .orElseThrow(() -> new Exception("El sorteo con ID " + idSorteo + " no existe."));
+                .orElseThrow(() -> new Exception("El sorteo con ID " + idSorteo + " no existe."));
 
         return new SorteoDTO(
-            sorteoEntidad.getIdSorteo(),
-            sorteoEntidad.getImagenRepresentativa(),
-            sorteoEntidad.getRangoNumeros(),
-            sorteoEntidad.getPrecioNumero(),
-            sorteoEntidad.getFechaInicio(),
-            sorteoEntidad.getFechaFin(),
-            sorteoEntidad.getEstadoSorteo()
+                sorteoEntidad.getIdSorteo(),
+                sorteoEntidad.getNumeroInicial(),
+                sorteoEntidad.getPrecioNumero(),
+                sorteoEntidad.getFechaInicio(),
+                sorteoEntidad.getFechaFin(),
+                sorteoEntidad.getEstadoSorteo()
         );
     }
-    
+
     public void registrarSorteo(SorteoDTO sorteoDTO) throws Exception {
         // Validar DTO
         sorteoDTO.validar();
 
         // Convertir DTO a entidad
         Sorteo sorteo = new Sorteo();
-        sorteo.setRangoNumeros(sorteoDTO.getRangoNumeros());
+        sorteo.setNumeroInicial(sorteoDTO.getNumeroInicial());
+        sorteo.setNumeroFinal(sorteoDTO.getNumeroFinal());
         sorteo.setPrecioNumero(sorteoDTO.getPrecioNumero());
         sorteo.setFechaInicio(sorteoDTO.getFechaInicio());
         sorteo.setFechaFin(sorteoDTO.getFechaFin());
@@ -54,11 +54,11 @@ public class SorteoService {
 
         // Recuperar el sorteo existente
         Sorteo sorteoExistente = Optional.ofNullable(sorteoDAO.obtenerSorteoPorId(sorteoDTO.getIdSorteo()))
-            .orElseThrow(() -> new Exception("El sorteo con ID " + sorteoDTO.getIdSorteo() + " no existe."));
+                .orElseThrow(() -> new Exception("El sorteo con ID " + sorteoDTO.getIdSorteo() + " no existe."));
 
         // Actualizar los datos
-        sorteoExistente.setImagenRepresentativa(sorteoDTO.getImagenRepresentativa());
-        sorteoExistente.setRangoNumeros(sorteoDTO.getRangoNumeros());
+        sorteoExistente.setNumeroInicial(sorteoDTO.getNumeroInicial());
+        sorteoExistente.setNumeroFinal(sorteoDTO.getNumeroFinal());
         sorteoExistente.setPrecioNumero(sorteoDTO.getPrecioNumero());
         sorteoExistente.setFechaInicio(sorteoDTO.getFechaInicio());
         sorteoExistente.setFechaFin(sorteoDTO.getFechaFin());
@@ -67,7 +67,7 @@ public class SorteoService {
         // Guardar cambios
         sorteoDAO.actualizarSorteo(sorteoExistente);
     }
-    
+
     public void modificarSorteo(SorteoDTO nuevoSorteo) throws Exception {
         // Validar los datos del DTO
         nuevoSorteo.validar();
@@ -79,7 +79,8 @@ public class SorteoService {
         }
 
         // Actualizar los datos del sorteo
-        sorteoActual.setRangoNumeros(nuevoSorteo.getRangoNumeros());
+        sorteoActual.setNumeroInicial(nuevoSorteo.getNumeroInicial());
+        sorteoActual.setNumeroFinal(nuevoSorteo.getNumeroFinal());
         sorteoActual.setPrecioNumero(nuevoSorteo.getPrecioNumero());
         sorteoActual.setFechaInicio(nuevoSorteo.getFechaInicio());
         sorteoActual.setFechaFin(nuevoSorteo.getFechaFin());

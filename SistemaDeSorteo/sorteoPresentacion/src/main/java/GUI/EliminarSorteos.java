@@ -39,7 +39,7 @@ public class EliminarSorteos extends javax.swing.JFrame {
                 Sorteo sorteo = sorteos.get(i);
                 data[i][0] = sorteo.getIdSorteo();
                 data[i][1] = sorteo.getPrecioNumero();
-                data[i][2] = sorteo.getRangoNumeros();
+                data[i][2] = sorteo.getNumeroInicial() + "-" + sorteo.getNumeroFinal();
                 data[i][3] = sorteo.getEstadoSorteo();
             }
 

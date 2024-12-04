@@ -13,28 +13,29 @@ import java.util.Date;
 public class SorteoDTO {
 
     private int idSorteo;
-    private String imagenRepresentativa;
-    private String rangoNumeros;
+    private int numeroInicial;
+    private int numeroFinal;
     private float precioNumero;
     private Date fechaInicio;
     private Date fechaFin;
     private EstadoSorteo estadoSorteo;
 
-    public SorteoDTO() {}
+    public SorteoDTO() {
+    }
 
-    public SorteoDTO(int idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
+    public SorteoDTO(int idSorteo, int numeroInicial, int numeroFinal, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
         this.idSorteo = idSorteo;
-        this.imagenRepresentativa = imagenRepresentativa;
-        this.rangoNumeros = rangoNumeros;
+        this.numeroInicial = numeroInicial;
+        this.numeroFinal = numeroFinal;
         this.precioNumero = precioNumero;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estadoSorteo = estadoSorteo;
     }
 
-    public SorteoDTO(String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
-        this.imagenRepresentativa = imagenRepresentativa;
-        this.rangoNumeros = rangoNumeros;
+    public SorteoDTO(int numeroInicial, int numeroFinal, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
+        this.numeroInicial = numeroInicial;
+        this.numeroFinal = numeroFinal;
         this.precioNumero = precioNumero;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -49,20 +50,20 @@ public class SorteoDTO {
         this.idSorteo = idSorteo;
     }
 
-    public String getImagenRepresentativa() {
-        return imagenRepresentativa;
+    public int getNumeroInicial() {
+        return numeroInicial;
     }
 
-    public void setImagenRepresentativa(String imagenRepresentativa) {
-        this.imagenRepresentativa = imagenRepresentativa;
+    public void setNumeroInicial(int numeroInicial) {
+        this.numeroInicial = numeroInicial;
     }
 
-    public String getRangoNumeros() {
-        return rangoNumeros;
+    public int getNumeroFinal() {
+        return numeroFinal;
     }
 
-    public void setRangoNumeros(String rangoNumeros) {
-        this.rangoNumeros = rangoNumeros;
+    public void setNumeroFinal(int numeroFinal) {
+        this.numeroFinal = numeroFinal;
     }
 
     public float getPrecioNumero() {
@@ -98,8 +99,8 @@ public class SorteoDTO {
     }
 
     public void validar() throws IllegalArgumentException {
-        if (rangoNumeros == null || rangoNumeros.isEmpty()) {
-            throw new IllegalArgumentException("El rango de números no puede estar vacío.");
+        if (numeroInicial < 0 || numeroFinal < 0 || numeroFinal < numeroInicial) {
+            throw new IllegalArgumentException("El rango de números es inválido. Asegúrate de que el número final sea mayor o igual al número inicial y que ambos sean no negativos.");
         }
         if (precioNumero <= 0) {
             throw new IllegalArgumentException("El precio del número debe ser mayor a cero.");

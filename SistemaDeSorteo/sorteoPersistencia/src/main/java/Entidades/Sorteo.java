@@ -32,8 +32,11 @@ public class Sorteo implements Serializable {
     @Column(name = "imagen_representativa")
     private String imagenRepresentativa;
 
-    @Column(name = "rango_numeros", nullable = false)
-    private String rangoNumeros;
+    @Column(name = "numero_inicial", nullable = false)
+    private int numeroInicial;
+
+    @Column(name = "numero_final", nullable = false)
+    private int numeroFinal;
 
     @Column(name = "precio_numero", nullable = false)
     private float precioNumero;
@@ -58,34 +61,17 @@ public class Sorteo implements Serializable {
         this.idSorteo = idSorteo;
     }
 
-    public Sorteo(String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
+    public Sorteo(String imagenRepresentativa, int numeroInicial, int numeroFinal, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
         this.imagenRepresentativa = imagenRepresentativa;
-        this.rangoNumeros = rangoNumeros;
+        this.numeroInicial = numeroInicial;
+        this.numeroFinal = numeroFinal;
         this.precioNumero = precioNumero;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.estadoSorteo = estadoSorteo;
     }
 
-    public Sorteo(int idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
-        this.idSorteo = idSorteo;
-        this.imagenRepresentativa = imagenRepresentativa;
-        this.rangoNumeros = rangoNumeros;
-        this.precioNumero = precioNumero;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.estadoSorteo = estadoSorteo;
-    }
-
-    public Sorteo(String imagenRepresentativa, String rangoNumeros, float precioNumero, EstadoSorteo estadoSorteo) {
-        this.imagenRepresentativa = imagenRepresentativa;
-        this.rangoNumeros = rangoNumeros;
-        this.precioNumero = precioNumero;
-        this.estadoSorteo = estadoSorteo;
-    }
-    
-    
-
+    // Getters y Setters
     public int getIdSorteo() {
         return idSorteo;
     }
@@ -102,12 +88,20 @@ public class Sorteo implements Serializable {
         this.imagenRepresentativa = imagenRepresentativa;
     }
 
-    public String getRangoNumeros() {
-        return rangoNumeros;
+    public int getNumeroInicial() {
+        return numeroInicial;
     }
 
-    public void setRangoNumeros(String rangoNumeros) {
-        this.rangoNumeros = rangoNumeros;
+    public void setNumeroInicial(int numeroInicial) {
+        this.numeroInicial = numeroInicial;
+    }
+
+    public int getNumeroFinal() {
+        return numeroFinal;
+    }
+
+    public void setNumeroFinal(int numeroFinal) {
+        this.numeroFinal = numeroFinal;
     }
 
     public float getPrecioNumero() {
@@ -147,7 +141,8 @@ public class Sorteo implements Serializable {
         int hash = 7;
         hash = 23 * hash + this.idSorteo;
         hash = 23 * hash + Objects.hashCode(this.imagenRepresentativa);
-        hash = 23 * hash + Objects.hashCode(this.rangoNumeros);
+        hash = 23 * hash + this.numeroInicial;
+        hash = 23 * hash + this.numeroFinal;
         hash = 23 * hash + Float.floatToIntBits(this.precioNumero);
         hash = 23 * hash + Objects.hashCode(this.fechaInicio);
         hash = 23 * hash + Objects.hashCode(this.fechaFin);
@@ -170,13 +165,16 @@ public class Sorteo implements Serializable {
         if (this.idSorteo != other.idSorteo) {
             return false;
         }
+        if (this.numeroInicial != other.numeroInicial) {
+            return false;
+        }
+        if (this.numeroFinal != other.numeroFinal) {
+            return false;
+        }
         if (Float.floatToIntBits(this.precioNumero) != Float.floatToIntBits(other.precioNumero)) {
             return false;
         }
         if (!Objects.equals(this.imagenRepresentativa, other.imagenRepresentativa)) {
-            return false;
-        }
-        if (!Objects.equals(this.rangoNumeros, other.rangoNumeros)) {
             return false;
         }
         if (!Objects.equals(this.fechaInicio, other.fechaInicio)) {
@@ -190,8 +188,16 @@ public class Sorteo implements Serializable {
 
     @Override
     public String toString() {
-        return "Sorteo{" + "idSorteo=" + idSorteo + ", imagenRepresentativa=" + imagenRepresentativa + ", rangoNumeros=" + rangoNumeros + ", precioNumero=" + precioNumero + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estadoSorteo=" + estadoSorteo + '}';
+        return "Sorteo{"
+                + "idSorteo=" + idSorteo
+                + ", imagenRepresentativa='" + imagenRepresentativa + '\''
+                + ", numeroInicial=" + numeroInicial
+                + ", numeroFinal=" + numeroFinal
+                + ", precioNumero=" + precioNumero
+                + ", fechaInicio=" + fechaInicio
+                + ", fechaFin=" + fechaFin
+                + ", estadoSorteo=" + estadoSorteo
+                + '}';
     }
-    
-    
+
 }
