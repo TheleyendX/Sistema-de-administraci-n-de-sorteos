@@ -33,6 +33,15 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(String nombre, String apellido, String email, TipoUsuario tipoUsuario, String contrasena) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.tipoUsuario = tipoUsuario;
+        this.contrasena = contrasena;
+    }
+
+    
     public Usuario(Integer idUsuario, String nombre,String apellido, String email, TipoUsuario tipoUsuario, LocalDateTime fechaRegistro, EstadoUsuario estadoUsuario, String contrasena) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;

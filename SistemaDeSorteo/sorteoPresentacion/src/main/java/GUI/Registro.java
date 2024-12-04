@@ -39,14 +39,12 @@ public class Registro extends javax.swing.JFrame {
         txtContra = new javax.swing.JPasswordField();
         txtConfirmacionContra = new javax.swing.JPasswordField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        txtId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         btnRegistrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -70,8 +68,6 @@ public class Registro extends javax.swing.JFrame {
         jLabel5.setText("Confirmacion Contraseña:");
 
         jLabel6.setText("Tipo de usuario:");
-
-        jLabel7.setText("ID:");
 
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,10 +94,6 @@ public class Registro extends javax.swing.JFrame {
                 .addGap(107, 107, 107)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
@@ -119,7 +111,7 @@ public class Registro extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, 221, Short.MAX_VALUE)
                             .addComponent(txtConfirmacionContra))))
                 .addGap(154, 154, 154))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -162,11 +154,7 @@ public class Registro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrar)
                     .addComponent(btnCancelar))
@@ -211,12 +199,7 @@ public class Registro extends javax.swing.JFrame {
 
         int id;
 
-        // Convertir y validar el ID
-        try {
-            id = Integer.parseInt(txtId.getText());
-        } catch (NumberFormatException e) {
-            return;
-        }
+       
 
         // Verificar que los campos no estén vacíos
         if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || confirmacionContrasena.isEmpty()) {
@@ -225,7 +208,7 @@ public class Registro extends javax.swing.JFrame {
         }
 
         // Crear un objeto de usuario
-        Usuario nuevoUsuario = new Usuario(id, nombre,apellido, correo, tipoUsuario, contrasena);
+        Usuario nuevoUsuario = new Usuario(nombre, apellido,correo, tipoUsuario, contrasena);
 
         // Llamar a un método para guardar el usuario en la base de datos 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -254,13 +237,11 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JPasswordField txtConfirmacionContra;
     private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
