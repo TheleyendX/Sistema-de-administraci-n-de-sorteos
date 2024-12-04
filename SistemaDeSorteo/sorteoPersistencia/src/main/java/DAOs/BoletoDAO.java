@@ -88,16 +88,16 @@ public class BoletoDAO implements IBoleto {
                 .collect(Collectors.toList());
     }
 
-    public boolean apartarBoleto(String numeroBoleto) {
-        Boleto boleto = obtenerBoletoPorNumero(numeroBoleto);
-        if (boleto != null && boleto.getEstado() == EstadoBoleto.DISPONIBLE) {
-            boleto.setEstado(EstadoBoleto.APARTADO);
-            boleto.setTiempoApartado(LocalDateTime.now());
-            actualizarBoleto(boleto);  // Método que persiste el boleto actualizado
-            return true;
-        }
-        return false;  // Si no se encuentra el boleto o no está disponible
-    }
+////    public boolean apartarBoleto(String numeroBoleto) {
+////        Boleto boleto = obtenerBoletoPorNumero(numeroBoleto);
+////        if (boleto != null && boleto.getEstado() == EstadoBoleto.DISPONIBLE) {
+////            boleto.setEstado(EstadoBoleto.APARTADO);
+////            boleto.setTiempoApartado(LocalDateTime.now());
+////            actualizarBoleto(boleto);  // Método que persiste el boleto actualizado
+////            return true;
+////        }
+//        return false;  // Si no se encuentra el boleto o no está disponible
+////    }
 
     // Método para obtener un boleto por su número
     public Boleto obtenerBoletoPorNumero(String numeroBoleto) {
@@ -133,6 +133,35 @@ public class BoletoDAO implements IBoleto {
                     actualizarBoleto(boleto);
                 }
             }
+        }
+    }
+    
+     // Método para obtener los boletos disponibles y su precio desde la tabla sorteo
+    public List<Object[]> obtenerBoletosDisponibles() {
+        String query = "SELECT b.numero_boleto, s.precio_numero " +
+                       "FROM boletos b JOIN sorteos s ON b.id_sorteo = s.id_sorteo " +
+                       "WHERE b.estado = 'DISPONIBLE'";
+        return entityManager.createNativeQuery(query).getResultList();
+    }
+    
+      // Método para apartar un boleto
+    public void apartarBoleto(String numeroBoleto) {
+        entityManager.getTransaction().begin();
+        try {
+            String updateQuery = "UPDATE boletos SET estado = 'APARTADO', tiempo_apartado = NOW() " +
+                                 "WHERE numero_boleto = :numero AND estado = 'DISPONIBLE'";
+            int rowsUpdated = entityManager.createNativeQuery(updateQuery)
+                    .setParameter("numero", numeroBoleto)
+                    .executeUpdate();
+
+            if (rowsUpdated == 0) {
+                throw new IllegalStateException("El boleto no está disponible o ya fue apartado.");
+            }
+
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
         }
     }
 }
