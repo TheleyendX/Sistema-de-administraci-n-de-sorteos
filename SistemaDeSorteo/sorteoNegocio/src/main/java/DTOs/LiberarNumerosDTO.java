@@ -10,22 +10,22 @@ package DTOs;
  */
 public class LiberarNumerosDTO {
 
-    private Long idSorteo; 
+    private int idSorteo; 
     private String rangoNumeros; 
 
     public LiberarNumerosDTO() {
     }
 
-    public LiberarNumerosDTO(Long idSorteo, String rangoNumeros) {
+    public LiberarNumerosDTO(int idSorteo, String rangoNumeros) {
         this.idSorteo = idSorteo;
         this.rangoNumeros = rangoNumeros;
     }
 
-    public Long getIdSorteo() {
+    public int getIdSorteo() {
         return idSorteo;
     }
 
-    public void setIdSorteo(Long idSorteo) {
+    public void setIdSorteo(int idSorteo) {
         this.idSorteo = idSorteo;
     }
 
@@ -38,7 +38,7 @@ public class LiberarNumerosDTO {
     }
 
     public void validar() {
-        if (idSorteo == null || idSorteo <= 0) {
+        if ( idSorteo <= 0) {
             throw new IllegalArgumentException("El ID del sorteo debe ser un número válido.");
         }
         if (rangoNumeros == null || rangoNumeros.isEmpty()) {

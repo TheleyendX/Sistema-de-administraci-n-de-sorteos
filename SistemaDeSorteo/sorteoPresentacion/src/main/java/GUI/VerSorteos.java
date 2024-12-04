@@ -5,9 +5,14 @@
 package GUI;
 
 import DAOs.SorteoDAO;
+import DTOs.SorteoDTO;
+import Entidades.EstadoSorteo;
 import Entidades.Sorteo;
+import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import services.SorteoService;
 
 /**
  *
@@ -15,6 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class VerSorteos extends javax.swing.JFrame {
 
+    int id;
     /**
      * Creates new form VerSorteos
      */
@@ -32,8 +38,8 @@ public class VerSorteos extends javax.swing.JFrame {
             List<Sorteo> sorteos = sorteoDAO.obtenerTodosSorteos();
 
             // Definir el modelo de tabla
-            String[] columnas = {"ID Sorteo", "Precio Numero", "Total de numeros", "Estado"};
-            Object[][] data = new Object[sorteos.size()][4];
+            String[] columnas = {"ID Sorteo", "Precio Numero", "Total de numeros", "Estado", "Inicio", "Fin"};
+            Object[][] data = new Object[sorteos.size()][6];
 
             // Llenar los datos de los sorteos
             for (int i = 0; i < sorteos.size(); i++) {
@@ -42,15 +48,17 @@ public class VerSorteos extends javax.swing.JFrame {
                 data[i][1] = sorteo.getPrecioNumero();
                 data[i][2] = sorteo.getRangoNumeros(); 
                 data[i][3] = sorteo.getEstadoSorteo(); 
+                data[i][4] = sorteo.getFechaInicio();
+                data[i][5] = sorteo.getFechaFin();
             }
 
             // Actualizar el modelo de la tabla
             jTable1.setModel(new javax.swing.table.DefaultTableModel(data, columnas) {
                 Class[] types = new Class[]{
-                        java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+                        java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
                 };
                 boolean[] canEdit = new boolean[]{
-                        false, false, false, false
+                        false, false, false, false, false, false
                 };
 
                 @Override
@@ -78,28 +86,47 @@ public class VerSorteos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtPrecio2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnVolver1 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
+        txtRango = new javax.swing.JTextField();
+        txtInicio = new javax.swing.JTextField();
+        txtFin = new javax.swing.JTextField();
+        boxEstado = new javax.swing.JComboBox<>();
+
+        txtPrecio2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID Sorteo", "Precio Numero", "Total de numeros", "Estado"
+                "ID", "Precio", "Rango", "Estado", "Inicio", "Fin"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -110,7 +137,17 @@ public class VerSorteos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(15);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(35);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
+        }
 
         btnVolver1.setText("Volver");
         btnVolver1.addActionListener(new java.awt.event.ActionListener() {
@@ -119,27 +156,163 @@ public class VerSorteos extends javax.swing.JFrame {
             }
         });
 
+        btnModificar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setText("ID");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setText("Precio");
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel4.setText("Rango");
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel5.setText("Estado");
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel6.setText("Inicio");
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel7.setText("Fin");
+
+        txtID.setEnabled(false);
+
+        txtInicio.setEnabled(false);
+
+        txtFin.setEnabled(false);
+
+        boxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "    ACTIVO", "    INACTIVO", "    FINALIZADO" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(88, 88, 88)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(84, 84, 84)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtRango, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(82, 82, 82)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtPrecio)))
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFin, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(145, 145, 145)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnVolver1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(btnVolver1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel4)
+                                            .addComponent(txtRango, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel7)
+                                        .addGap(15, 15, 15)))
+                                .addGap(123, 123, 123))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(47, 47, 47))
+                                    .addComponent(txtFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(114, 114, 114)
+                                .addComponent(jLabel8))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(69, 69, 69)
+                                .addComponent(jLabel1)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -153,12 +326,204 @@ public class VerSorteos extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_btnVolver1ActionPerformed
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        try {
+            // Validar que el campo ID no esté vacío
+            if (txtID.getText().isEmpty()) {
+                throw new IllegalArgumentException("Debe seleccionar un sorteo para modificar.");
+            }
+
+            // Obtener el ID del sorteo
+            int id = Integer.parseInt(txtID.getText());
+
+            // Crear una instancia del servicio
+            SorteoService sorteoService = new SorteoService(new SorteoDAO());
+
+            // Obtener el sorteo actual desde la base de datos
+            SorteoDTO sorteoActual = sorteoService.obtenerPorId(id);
+            if (sorteoActual == null) {
+                throw new IllegalArgumentException("No se encontró el sorteo con ID: " + id);
+            }
+
+            // Verificar si hay al menos un cambio en los campos
+            boolean hayCambios = false;
+
+            if (sorteoActual.getPrecioNumero() != Float.parseFloat(txtPrecio.getText())) {
+                hayCambios = true;
+            }
+            if (!sorteoActual.getRangoNumeros().equals(txtRango.getText())) {
+                hayCambios = true;
+            }
+            if (!sorteoActual.getEstadoSorteo().equals(boxEstado.getSelectedItem())) {
+                hayCambios = true;
+            }
+
+            // Si no hay cambios, mostrar mensaje y salir
+            if (!hayCambios) {
+                JOptionPane.showMessageDialog(this, "No se detectaron cambios en los campos.");
+                return;
+            }
+
+            // Crear un nuevo DTO con los datos modificados
+            SorteoDTO nuevoSorteo = new SorteoDTO(
+                    id,
+                    sorteoActual.getImagenRepresentativa(),
+                    txtRango.getText(),
+                    Float.parseFloat(txtPrecio.getText()),
+                    sorteoActual.getFechaInicio(), // Mantener la fecha de inicio actual
+                    sorteoActual.getFechaFin(), // Mantener la fecha de fin actual
+                    (EstadoSorteo) boxEstado.getSelectedItem() // Obtener el estado del combo box
+            );
+
+            // Validar el nuevo DTO
+            nuevoSorteo.validar();
+
+            // Modificar el sorteo en la base de datos
+            sorteoService.modificarSorteo(nuevoSorteo);
+
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Sorteo modificado correctamente.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: Los campos deben contener valores válidos.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error de Validación", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+       // Añadir el evento de clic en la tabla
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) { // Detecta un solo clic
+                    int selectedRow = jTable1.getSelectedRow();
+                    if (selectedRow != -1) {
+                        // Llamar al método btnEliminarActionPerformed al hacer clic
+                        btnEliminarActionPerformed(null);
+                    }
+                }
+            }
+        });
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow(); // Obtener la fila seleccionada
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un sorteo para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que deseas eliminar este sorteo?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                // Obtener el ID del sorteo de la columna 0 (suponiendo que está en la columna 0)
+                int idSorteo = (int) jTable1.getValueAt(selectedRow, 0);
+
+                // Crear instancia del DAO
+                SorteoDAO sorteoDAO = new SorteoDAO();
+
+                // Consultar el estado del sorteo
+                String estadoSorteo = sorteoDAO.consultarEstadoSorteo(idSorteo);
+
+                // Verificar si el sorteo está inactivo
+                if (!estadoSorteo.equals("INACTIVO")) {
+                    JOptionPane.showMessageDialog(this,
+                            "El sorteo no puede ser eliminado porque no está inactivo.",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                // Llamar al método para eliminar el sorteo
+                sorteoDAO.eliminarSorteo(idSorteo);
+                JOptionPane.showMessageDialog(this, "Sorteo eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                // Recargar la tabla después de eliminar
+                cargarSorteos();
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el sorteo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace(); // Registrar el error para depuración
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int fila = jTable1.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Sorteo no seleccionado");
+        } else {
+            try {
+                // Llenado de los txt con base al sorteo en la tabla
+                int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString()); // Columna 0
+                float precio = Float.parseFloat(jTable1.getValueAt(fila, 1).toString()); // Columna 1
+                String rango = jTable1.getValueAt(fila, 2).toString(); // Columna 2
+
+                // Manejo de la columna 3: EstadoSorteo
+                Object estadoObj = jTable1.getValueAt(fila, 3);
+                EstadoSorteo estado = null;
+                if (estadoObj instanceof EstadoSorteo) {
+                    estado = (EstadoSorteo) estadoObj;
+                } else {
+                    estado = EstadoSorteo.valueOf(estadoObj.toString());
+                }
+
+                Object inicio = jTable1.getValueAt(fila, 4); // Columna 4
+                Object fin = jTable1.getValueAt(fila, 5); // Columna 5
+
+                // Asignar valores a los campos de texto
+                txtID.setText(String.valueOf(id));
+                txtPrecio.setText(String.valueOf(precio));
+                txtRango.setText(rango);
+                boxEstado.setSelectedItem(estado); // Asignar el estado al combo box
+                txtInicio.setText(inicio != null ? inicio.toString() : ""); // Manejo de posibles valores nulos
+                txtFin.setText(fin != null ? fin.toString() : "");
+
+                // Hacer no editables los campos ID, Inicio y Fin
+                txtID.setEditable(false);
+                txtInicio.setEditable(false);
+                txtFin.setEditable(false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al procesar la fila seleccionada: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+//    void modificar(){
+//        String precio = txtPrecio.getText();
+//        String rango = txtRango.getText();
+//        String estado = txtEstado.getText();
+//        String inicio = txtInicio.getText();
+//        String fin = txtFin.getText();
+//    }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> boxEstado;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnVolver1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtFin;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtInicio;
+    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JLabel txtPrecio2;
+    private javax.swing.JTextField txtRango;
     // End of variables declaration//GEN-END:variables
 }

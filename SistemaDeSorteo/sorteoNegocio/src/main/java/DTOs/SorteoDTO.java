@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DTOs;
 
+import DAOs.SorteoDAO;
+import Entidades.EstadoSorteo;
+import Entidades.Sorteo;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -13,30 +12,40 @@ import java.util.Date;
  */
 public class SorteoDTO {
 
-    private Long idSorteo;
+    private int idSorteo;
     private String imagenRepresentativa;
     private String rangoNumeros;
     private float precioNumero;
-    private Date fechaSorteo;
+    private Date fechaInicio;
     private Date fechaFin;
+    private EstadoSorteo estadoSorteo;
 
-    public SorteoDTO() {
-    }
+    public SorteoDTO() {}
 
-    public SorteoDTO(Long idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaSorteo, Date fechaFin) {
+    public SorteoDTO(int idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
         this.idSorteo = idSorteo;
         this.imagenRepresentativa = imagenRepresentativa;
         this.rangoNumeros = rangoNumeros;
         this.precioNumero = precioNumero;
-        this.fechaSorteo = fechaSorteo;
+        this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.estadoSorteo = estadoSorteo;
     }
 
-    public Long getIdSorteo() {
+    public SorteoDTO(String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
+        this.imagenRepresentativa = imagenRepresentativa;
+        this.rangoNumeros = rangoNumeros;
+        this.precioNumero = precioNumero;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.estadoSorteo = estadoSorteo;
+    }
+
+    public int getIdSorteo() {
         return idSorteo;
     }
 
-    public void setIdSorteo(Long idSorteo) {
+    public void setIdSorteo(int idSorteo) {
         this.idSorteo = idSorteo;
     }
 
@@ -64,15 +73,13 @@ public class SorteoDTO {
         this.precioNumero = precioNumero;
     }
 
-    public Date getFechaSorteo() {
-        return fechaSorteo;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setFechaSorteo(Date fechaSorteo) {
-        this.fechaSorteo = fechaSorteo;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
-    
-    
 
     public Date getFechaFin() {
         return fechaFin;
@@ -82,6 +89,14 @@ public class SorteoDTO {
         this.fechaFin = fechaFin;
     }
 
+    public EstadoSorteo getEstadoSorteo() {
+        return estadoSorteo;
+    }
+
+    public void setEstadoSorteo(EstadoSorteo estadoSorteo) {
+        this.estadoSorteo = estadoSorteo;
+    }
+
     public void validar() throws IllegalArgumentException {
         if (rangoNumeros == null || rangoNumeros.isEmpty()) {
             throw new IllegalArgumentException("El rango de números no puede estar vacío.");
@@ -89,9 +104,14 @@ public class SorteoDTO {
         if (precioNumero <= 0) {
             throw new IllegalArgumentException("El precio del número debe ser mayor a cero.");
         }
-        if (fechaSorteo == null) {
-            throw new IllegalArgumentException("La fecha del sorteo no puede estar vacía.");
+        if (fechaInicio == null) {
+            throw new IllegalArgumentException("La fecha de inicio no puede estar vacía.");
+        }
+        if (fechaFin == null) {
+            throw new IllegalArgumentException("La fecha de fin no puede estar vacía.");
+        }
+        if (!fechaFin.after(fechaInicio)) {
+            throw new IllegalArgumentException("La fecha de fin debe ser posterior a la fecha de inicio.");
         }
     }
-
 }

@@ -22,21 +22,25 @@ public class SorteoTest {
     
     public SorteoTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
+        System.out.println("Iniciando pruebas para SorteoTest...");
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
+        System.out.println("Finalizando pruebas para SorteoTest...");
     }
-    
+
     @BeforeEach
     public void setUp() {
+        System.out.println("Iniciando una nueva prueba...");
     }
-    
+
     @AfterEach
     public void tearDown() {
+        System.out.println("Prueba finalizada.");
     }
 
     // Helper para crear fechas rápidamente
@@ -57,36 +61,23 @@ public class SorteoTest {
     public void testPrecioBoletoValido() {
         Sorteo sorteo = new Sorteo();
         sorteo.setPrecioNumero(20.0f);
-        assertTrue(sorteo.getPrecioNumero() > 0);
+        assertTrue(sorteo.getPrecioNumero() > 0, "El precio del boleto debe ser mayor a 0");
     }
 
     @Test
     public void testPrecioBoletoInvalido() {
         Sorteo sorteo = new Sorteo();
         sorteo.setPrecioNumero(-5.0f);
-        assertTrue(sorteo.getPrecioNumero() <= 0); // Esperamos un precio inválido
-    }
-
-    @Test
-    public void testPeriodoVentaValido() {
-        Sorteo sorteo = new Sorteo();
-        sorteo.setPeriodoVenta(Duration.ofDays(30)); // 30 días de duración
-        assertEquals(Duration.ofDays(30), sorteo.getPeriodoVenta());
-    }
-
-    @Test
-    public void testPeriodoVentaInvalido() {
-        Sorteo sorteo = new Sorteo();
-        sorteo.setPeriodoVenta(Duration.ofDays(-5)); // Duración negativa
-        assertTrue(sorteo.getPeriodoVenta().isNegative());
+        assertTrue(sorteo.getPrecioNumero() <= 0, "El precio del boleto no puede ser negativo");
     }
 
     @Test
     public void testFechaSorteo() {
         Sorteo sorteo = new Sorteo();
         Date fecha = createDate(2024, 12, 25);
-        sorteo.setFechaSorteo(fecha);
-        assertEquals(fecha, sorteo.getFechaSorteo());
+        sorteo.setFechaInicio(fecha);
+        assertNotNull(sorteo.getFechaInicio(), "La fecha de inicio del sorteo no debe ser nula");
+        assertEquals(fecha, sorteo.getFechaInicio(), "La fecha del sorteo no coincide con la esperada");
     }
 
     @Test
@@ -98,7 +89,7 @@ public class SorteoTest {
         sorteo.setFechaInicio(fechaInicio);
         sorteo.setFechaFin(fechaFin);
 
-        assertTrue(sorteo.getFechaInicio().before(sorteo.getFechaFin()));
+        assertTrue(sorteo.getFechaInicio().before(sorteo.getFechaFin()), "La fecha de inicio debe ser anterior a la fecha de fin");
     }
 
     @Test
@@ -110,19 +101,19 @@ public class SorteoTest {
         sorteo.setFechaInicio(fechaInicio);
         sorteo.setFechaFin(fechaFin);
 
-        assertFalse(sorteo.getFechaInicio().before(sorteo.getFechaFin()));
+        assertFalse(sorteo.getFechaInicio().before(sorteo.getFechaFin()), "La fecha de inicio no puede ser posterior a la fecha de fin");
     }
 
     @Test
     public void testEstadoSorteoPorDefecto() {
         Sorteo sorteo = new Sorteo();
-        assertEquals(EstadoSorteo.ACTIVO, sorteo.getEstadoSorteo());
+        assertEquals(EstadoSorteo.ACTIVO, sorteo.getEstadoSorteo(), "El estado por defecto del sorteo debe ser ACTIVO");
     }
 
     @Test
     public void testCambiarEstadoSorteo() {
         Sorteo sorteo = new Sorteo();
         sorteo.setEstadoSorteo(EstadoSorteo.INACTIVO);
-        assertEquals(EstadoSorteo.INACTIVO, sorteo.getEstadoSorteo());
+        assertEquals(EstadoSorteo.INACTIVO, sorteo.getEstadoSorteo(), "El estado del sorteo no se actualizó correctamente");
     }
 }

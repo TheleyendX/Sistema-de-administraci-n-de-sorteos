@@ -21,6 +21,11 @@
             <artifactId>spring-web</artifactId>
             <version>4.1.6.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.mycompany.sorteopersistencia</groupId>
+            <artifactId>sorteoPersistencia</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <name>sorteoNegocio</name>
 </project>

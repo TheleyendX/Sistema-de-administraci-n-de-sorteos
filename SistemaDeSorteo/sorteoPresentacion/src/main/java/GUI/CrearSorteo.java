@@ -9,6 +9,7 @@ import DTOs.SorteoDTO;
 import Entidades.*;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
+import services.SorteoService;
 
 /**
  *
@@ -196,15 +197,16 @@ public class CrearSorteo extends javax.swing.JFrame {
             SorteoDTO sorteoDTO = new SorteoDTO();
             sorteoDTO.setRangoNumeros(numeroInicial + "-" + numeroFinal);
             sorteoDTO.setPrecioNumero(precio);
-            sorteoDTO.setFechaSorteo(fechaInicioDate.getDate());
+            sorteoDTO.setFechaInicio(fechaInicioDate.getDate());
             sorteoDTO.setFechaFin(fechaFinDate.getDate());
+            sorteoDTO.setEstadoSorteo(EstadoSorteo.ACTIVO);
 
             // Validar el DTO
             sorteoDTO.validar();
 
             // Registrar el sorteo
-            SorteoDAO sorteo = new SorteoDAO();
-            sorteo.registrarSorteo(sorteoDTO);
+            SorteoService sorteoService = new SorteoService(new SorteoDAO());
+            sorteoService.registrarSorteo(sorteoDTO);
 
             // Mensaje de éxito
             JOptionPane.showMessageDialog(this, "Sorteo registrado correctamente.");

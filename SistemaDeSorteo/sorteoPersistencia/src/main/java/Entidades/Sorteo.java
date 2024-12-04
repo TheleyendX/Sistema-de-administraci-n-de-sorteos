@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Entidades;
 
 import java.io.Serializable;
@@ -9,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,7 +17,6 @@ import org.jfree.data.time.DateRange;
  *
  * @author ruben
  */
-
 /**
  * Entidad que representa un Sorteo.
  */
@@ -31,7 +27,7 @@ public class Sorteo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sorteo")
-    private Long idSorteo;
+    private int idSorteo;
 
     @Column(name = "imagen_representativa")
     private String imagenRepresentativa;
@@ -42,16 +38,6 @@ public class Sorteo implements Serializable {
     @Column(name = "precio_numero", nullable = false)
     private float precioNumero;
 
-    @Column(name = "periodo_venta")
-    private Duration periodoVenta;
-
-    @Column(name = "fecha_sorteo", nullable = false)
-    private Date fechaSorteo;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "estado_sorteo", nullable = false)
-    private EstadoSorteo estadoSorteo;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
@@ -60,39 +46,51 @@ public class Sorteo implements Serializable {
     @Column(name = "fecha_fin", nullable = false)
     private Date fechaFin;
 
-    public Sorteo() { this.estadoSorteo = EstadoSorteo.ACTIVO;}
-    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_sorteo", nullable = false)
+    private EstadoSorteo estadoSorteo;
 
-    public Sorteo(Long idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Duration periodoVenta, Date fechaSorteo, EstadoSorteo estadoSorteo, Date fechaInicio, Date fechaFin) {
+    public Sorteo() {
+        this.estadoSorteo = EstadoSorteo.ACTIVO;
+    }
+
+    public Sorteo(int idSorteo) {
+        this.idSorteo = idSorteo;
+    }
+
+    public Sorteo(String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
+        this.imagenRepresentativa = imagenRepresentativa;
+        this.rangoNumeros = rangoNumeros;
+        this.precioNumero = precioNumero;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.estadoSorteo = estadoSorteo;
+    }
+
+    public Sorteo(int idSorteo, String imagenRepresentativa, String rangoNumeros, float precioNumero, Date fechaInicio, Date fechaFin, EstadoSorteo estadoSorteo) {
         this.idSorteo = idSorteo;
         this.imagenRepresentativa = imagenRepresentativa;
         this.rangoNumeros = rangoNumeros;
         this.precioNumero = precioNumero;
-        this.periodoVenta = periodoVenta;
-        this.fechaSorteo = fechaSorteo;
-        this.estadoSorteo = estadoSorteo;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
+        this.estadoSorteo = estadoSorteo;
     }
 
-    public Sorteo(String imagenRepresentativa, String rangoNumeros, float precioNumero, 
-                  Duration periodoVenta, Date fechaSorteo, EstadoSorteo estadoSorteo, 
-                  Date fechaInicio, Date fechaFin) {
+    public Sorteo(String imagenRepresentativa, String rangoNumeros, float precioNumero, EstadoSorteo estadoSorteo) {
         this.imagenRepresentativa = imagenRepresentativa;
         this.rangoNumeros = rangoNumeros;
         this.precioNumero = precioNumero;
-        this.periodoVenta = periodoVenta;
-        this.fechaSorteo = fechaSorteo;
         this.estadoSorteo = estadoSorteo;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
     }
+    
+    
 
-    public Long getIdSorteo() {
+    public int getIdSorteo() {
         return idSorteo;
     }
 
-    public void setIdSorteo(Long idSorteo) {
+    public void setIdSorteo(int idSorteo) {
         this.idSorteo = idSorteo;
     }
 
@@ -120,30 +118,6 @@ public class Sorteo implements Serializable {
         this.precioNumero = precioNumero;
     }
 
-    public Duration getPeriodoVenta() {
-        return periodoVenta;
-    }
-
-    public void setPeriodoVenta(Duration periodoVenta) {
-        this.periodoVenta = periodoVenta;
-    }
-
-    public Date getFechaSorteo() {
-        return fechaSorteo;
-    }
-
-    public void setFechaSorteo(Date fechaSorteo) {
-        this.fechaSorteo = fechaSorteo;
-    }
-
-    public EstadoSorteo getEstadoSorteo() {
-        return estadoSorteo;
-    }
-
-    public void setEstadoSorteo(EstadoSorteo estadoSorteo) {
-        this.estadoSorteo = estadoSorteo;
-    }
-
     public Date getFechaInicio() {
         return fechaInicio;
     }
@@ -160,6 +134,64 @@ public class Sorteo implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public EstadoSorteo getEstadoSorteo() {
+        return estadoSorteo;
+    }
+
+    public void setEstadoSorteo(EstadoSorteo estadoSorteo) {
+        this.estadoSorteo = estadoSorteo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + this.idSorteo;
+        hash = 23 * hash + Objects.hashCode(this.imagenRepresentativa);
+        hash = 23 * hash + Objects.hashCode(this.rangoNumeros);
+        hash = 23 * hash + Float.floatToIntBits(this.precioNumero);
+        hash = 23 * hash + Objects.hashCode(this.fechaInicio);
+        hash = 23 * hash + Objects.hashCode(this.fechaFin);
+        hash = 23 * hash + Objects.hashCode(this.estadoSorteo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sorteo other = (Sorteo) obj;
+        if (this.idSorteo != other.idSorteo) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.precioNumero) != Float.floatToIntBits(other.precioNumero)) {
+            return false;
+        }
+        if (!Objects.equals(this.imagenRepresentativa, other.imagenRepresentativa)) {
+            return false;
+        }
+        if (!Objects.equals(this.rangoNumeros, other.rangoNumeros)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaInicio, other.fechaInicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaFin, other.fechaFin)) {
+            return false;
+        }
+        return this.estadoSorteo == other.estadoSorteo;
+    }
+
+    @Override
+    public String toString() {
+        return "Sorteo{" + "idSorteo=" + idSorteo + ", imagenRepresentativa=" + imagenRepresentativa + ", rangoNumeros=" + rangoNumeros + ", precioNumero=" + precioNumero + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estadoSorteo=" + estadoSorteo + '}';
+    }
+    
     
 }
-

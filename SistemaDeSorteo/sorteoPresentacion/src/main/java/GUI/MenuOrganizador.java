@@ -28,11 +28,9 @@ public class MenuOrganizador extends javax.swing.JFrame {
 
         btnCrearSorteo = new javax.swing.JButton();
         btnVerSorteos = new javax.swing.JButton();
-        btnModificarS = new javax.swing.JButton();
         btnEliminarS = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnLiberarNumero = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,13 +45,6 @@ public class MenuOrganizador extends javax.swing.JFrame {
         btnVerSorteos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerSorteosActionPerformed(evt);
-            }
-        });
-
-        btnModificarS.setText("Modificar Sorteo");
-        btnModificarS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarSActionPerformed(evt);
             }
         });
 
@@ -74,13 +65,6 @@ public class MenuOrganizador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Black Ops One", 2, 36)); // NOI18N
         jLabel1.setText("Menu");
 
-        btnLiberarNumero.setText("Liberar Numero");
-        btnLiberarNumero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLiberarNumeroActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,13 +77,11 @@ public class MenuOrganizador extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnModificarS, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnCrearSorteo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnVerSorteos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEliminarS, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLiberarNumero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnEliminarS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,17 +89,13 @@ public class MenuOrganizador extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(btnLiberarNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(btnCrearSorteo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerSorteos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnModificarS, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnEliminarS, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(98, 98, 98)
                 .addComponent(btnCerrarSesion)
                 .addGap(24, 24, 24))
         );
@@ -147,25 +125,11 @@ public class MenuOrganizador extends javax.swing.JFrame {
     a.setVisible(true);
     }//GEN-LAST:event_btnVerSorteosActionPerformed
 
-    private void btnModificarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarSActionPerformed
-       dispose(); // Cierra la pantalla
-   
-    ModificarSorteo a = new ModificarSorteo();
-    a.setVisible(true);
-    }//GEN-LAST:event_btnModificarSActionPerformed
-
     private void btnEliminarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSActionPerformed
          dispose(); // Cierra la pantalla
         EliminarSorteos a = new EliminarSorteos();
         a.setVisible(true);
     }//GEN-LAST:event_btnEliminarSActionPerformed
-
-    private void btnLiberarNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarNumeroActionPerformed
-         dispose();// Cierra la pantalla
-    
-    LiberarNumerosApartados a = new LiberarNumerosApartados();
-    a.setVisible(true);
-    }//GEN-LAST:event_btnLiberarNumeroActionPerformed
 
   
 
@@ -173,8 +137,6 @@ public class MenuOrganizador extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnCrearSorteo;
     private javax.swing.JButton btnEliminarS;
-    private javax.swing.JButton btnLiberarNumero;
-    private javax.swing.JButton btnModificarS;
     private javax.swing.JButton btnVerSorteos;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

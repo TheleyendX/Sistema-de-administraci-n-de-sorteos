@@ -199,7 +199,7 @@ public class EliminarSorteos extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
                 // Obtener el ID del sorteo de la columna 0 (suponiendo que está en la columna 0)
-                Long idSorteo = (Long) jTable1.getValueAt(selectedRow, 0);
+                int idSorteo = (int) jTable1.getValueAt(selectedRow, 0);
 
                 // Crear instancia del DAO
                 SorteoDAO sorteoDAO = new SorteoDAO();

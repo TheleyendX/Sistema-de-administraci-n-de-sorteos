@@ -1,3 +1,4 @@
+services\SorteoService.class
 DTOs\SorteoDTO.class
 DTOs\BoletoDTO.class
 DTOs\LiberarNumerosDTO.class
