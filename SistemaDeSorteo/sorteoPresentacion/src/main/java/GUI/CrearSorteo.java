@@ -137,6 +137,7 @@ public class CrearSorteo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNumerofinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumerofinalActionPerformed
