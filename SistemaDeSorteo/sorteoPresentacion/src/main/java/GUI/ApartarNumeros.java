@@ -9,6 +9,7 @@ import DAOs.SorteoDAO;
 import Entidades.Boleto;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,7 +33,7 @@ public class ApartarNumeros extends javax.swing.JFrame {
     
     // Método para cargar los números disponibles en la tabla
     private void cargarNumerosDisponibles() {
-         try {
+        try {
             BoletoDAO boletoDAO = new BoletoDAO();
             List<Object[]> boletosDisponibles = boletoDAO.obtenerBoletosDisponibles();
 
@@ -45,7 +46,7 @@ public class ApartarNumeros extends javax.swing.JFrame {
                 data[i][1] = boleto[1]; // Precio del sorteo
             }
 
-            jTable1.setModel(new javax.swing.table.DefaultTableModel(data, columnas) {
+            jTable1.setModel(new DefaultTableModel(data, columnas) {
                 boolean[] canEdit = new boolean[]{false, false};
 
                 @Override
@@ -58,6 +59,8 @@ public class ApartarNumeros extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    
     
     
     @SuppressWarnings("unchecked")
@@ -155,20 +158,20 @@ public class ApartarNumeros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnApartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApartarActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
+       int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un número para apartar.",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        String numeroBoleto = (String) jTable1.getValueAt(selectedRow, 0);
+        String numeroBoleto = jTable1.getValueAt(selectedRow, 0).toString();
 
         try {
             BoletoDAO boletoDAO = new BoletoDAO();
             boletoDAO.apartarBoleto(numeroBoleto);
             JOptionPane.showMessageDialog(this, "Número apartado correctamente.");
-            cargarNumerosDisponibles();
+            cargarNumerosDisponibles(); // Actualizar la tabla
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al apartar el número: " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);

@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.TypedQuery;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -19,6 +21,20 @@ public class BoletoDAO implements IBoleto {
 
     @PersistenceContext
     private EntityManager entityManager;
+    
+        public BoletoDAO() {
+        try {
+            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("sorteo");
+            this.entityManager = entityManagerFactory.createEntityManager();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al inicializar EntityManager: " + e.getMessage(), e);
+        }
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
 
     private final long LIMITE_APARTADO_MINUTOS = 30;
 
@@ -74,11 +90,18 @@ public class BoletoDAO implements IBoleto {
         }
     }
 
+
+    
     public List<Object[]> obtenerBoletosDisponibles() {
-        String query = "SELECT b.numeroBoleto, b.precio " +
-                       "FROM Boleto b WHERE b.estado = 'DISPONIBLE'";
-        return entityManager.createQuery(query, Object[].class).getResultList();
+    if (entityManager == null) {
+        throw new IllegalStateException("El EntityManager no fue inicializado.");
     }
+
+    String query = "SELECT b.numero_boleto" +
+                   "FROM boletos b " +
+                   "JOIN sorteos s ON s.id_sorteo";
+    return entityManager.createNativeQuery(query).getResultList();
+}
 
     public void apartarBoleto(String numeroBoleto) {
         entityManager.getTransaction().begin();

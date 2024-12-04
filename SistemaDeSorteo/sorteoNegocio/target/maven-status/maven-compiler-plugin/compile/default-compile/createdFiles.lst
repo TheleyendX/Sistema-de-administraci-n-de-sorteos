@@ -1,12 +1,1 @@
-services\SorteoService.class
-DTOs\SorteoDTO.class
-DTOs\BoletoDTO.class
-DTOs\LiberarNumerosDTO.class
-DTOs\NumeroDTO.class
-DTOs\ClienteDTO.class
-DTOs\credencialClienteDTO.class
-DTOs\DeudorDTO.class
-DTOs\PagoDTO.class
-DTOs\ApartarBoletoDTO.class
-DTOs\OrganizadorDTO.class
 DTOs\credencialOrganizadorDTO.class

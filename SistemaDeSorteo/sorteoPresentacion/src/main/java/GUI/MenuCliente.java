@@ -27,7 +27,6 @@ public class MenuCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         btnNumerosA = new javax.swing.JButton();
-        btnPagosRealizados = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnApartarNumeros = new javax.swing.JButton();
@@ -38,13 +37,6 @@ public class MenuCliente extends javax.swing.JFrame {
         btnNumerosA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNumerosAActionPerformed(evt);
-            }
-        });
-
-        btnPagosRealizados.setText("Pagos Realizados");
-        btnPagosRealizados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPagosRealizadosActionPerformed(evt);
             }
         });
 
@@ -78,9 +70,8 @@ public class MenuCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnPagosRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnNumerosA)
-                        .addComponent(btnApartarNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnNumerosA, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnApartarNumeros, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
@@ -88,13 +79,11 @@ public class MenuCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(btnNumerosA, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnPagosRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnApartarNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(21, 21, 21))
         );
@@ -114,10 +103,6 @@ public class MenuCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNumerosAActionPerformed
 
-    private void btnPagosRealizadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagosRealizadosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPagosRealizadosActionPerformed
-
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
             dispose(); // Cierra la pantalla
     
@@ -131,7 +116,6 @@ public class MenuCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnApartarNumeros;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnNumerosA;
-    private javax.swing.JButton btnPagosRealizados;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -33,9 +33,8 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel1" min="-2" pref="119" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnPagosRealizados" min="-2" pref="136" max="-2" attributes="0"/>
-                      <Component id="btnNumerosA" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnApartarNumeros" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
+                      <Component id="btnNumerosA" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnApartarNumeros" alignment="1" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
@@ -47,13 +46,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="39" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="btnNumerosA" min="-2" pref="41" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="btnPagosRealizados" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnApartarNumeros" min="-2" pref="41" max="-2" attributes="0"/>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="72" max="32767" attributes="0"/>
               <Component id="btnCerrarSesion" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
@@ -67,14 +64,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNumerosAActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnPagosRealizados">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Pagos Realizados"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPagosRealizadosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCerrarSesion">
