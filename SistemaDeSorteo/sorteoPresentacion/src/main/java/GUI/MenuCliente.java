@@ -35,10 +35,25 @@ public class MenuCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnNumerosA.setText("Numeros Apartados");
+        btnNumerosA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNumerosAActionPerformed(evt);
+            }
+        });
 
         btnPagosRealizados.setText("Pagos Realizados");
+        btnPagosRealizados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagosRealizadosActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Black Ops One", 2, 36)); // NOI18N
         jLabel1.setText("Menu");
@@ -94,6 +109,21 @@ public class MenuCliente extends javax.swing.JFrame {
         ApartarNumeros Apartar = new ApartarNumeros();
         Apartar.setVisible(true);
     }//GEN-LAST:event_btnApartarNumerosActionPerformed
+
+    private void btnNumerosAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNumerosAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNumerosAActionPerformed
+
+    private void btnPagosRealizadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagosRealizadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPagosRealizadosActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+            dispose(); // Cierra la pantalla
+    
+    Inicio a = new Inicio();
+    a.setVisible(true);
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     
 
